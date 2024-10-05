@@ -14,18 +14,16 @@ namespace ldjam_2024
                 _instance = this;
         }
 
-        public void SpawnProjectile(PackedScene scene, Vector2 globalPos, Vector2 direction)
+        public void SpawnProjectile(PackedScene scene, Vector2 globalPos, Vector2 direction, bool playerFired, Node2D firedFrom)
         {
             var projectile = scene.Instance() as Projectile;
             if (projectile == null)
                 throw new Exception("Failed to instantiate projectile");
             AddChild(projectile);
+            projectile.PlayerFired = playerFired;
             projectile.GlobalPosition = globalPos;
             projectile.Direction = direction.Normalized();
-            if (projectile.Direction.x < 0)
-            {
-                projectile.Scale = new Vector2(-1, 1);
-            }
+            projectile.GlobalRotation = firedFrom.GlobalRotation;
         }
     }
 }
