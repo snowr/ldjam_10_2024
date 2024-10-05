@@ -2,92 +2,105 @@ using Godot;
 
 namespace ldjam_2024
 {
-	[Tool]
-	public class Player : KinematicBody2D
-	{
-		private Gun _primaryGun;
+    [Tool]
+    public class Player : KinematicBody2D
+    {
+        private Gun _primaryGun;
 
-		public Player()
-		{
-			AddToGroup("PlayerCharacter");
-		}
+        public Player()
+        {
+            AddToGroup("PlayerCharacter");
+        }
 
-		public Vector2 LookAtPosition { get; set; }
-		public Vector2 TargetPosition { get; set; }
-		public float Speed { get; set; } = 100f;
-		public float TargetThresh { get; set; } = 2f;
+        public Vector2 LookAtPosition { get; set; }
+        public Vector2 TargetPosition { get; set; }
+        public float Speed { get; set; } = 100f;
+        public float TargetThresh { get; set; } = 2f;
+        public float RotationSpeed { get; set; } = 5.0f;
 
-		[Export] public NodePath PrimaryGunPath { get; set; }
+        public Vector2 RotOffset { get; set; } = new Vector2(1, 0);
 
-		private bool InMotion { get; set; }
-		bool _directionUpdated;
+        [Export] public NodePath PrimaryGunPath { get; set; }
 
-		public override void _Ready()
-		{
-			if (PrimaryGunPath != null)
-			{
-				_primaryGun = GetNode<Gun>(PrimaryGunPath);
-				if (_primaryGun == null) GD.PushError("Failed to load the primary gun moron.");
-			}
-		}
+        private bool InMotion { get; set; }
 
-		public override void _UnhandledInput(InputEvent @event)
-		{
-			if (@event.IsActionPressed("move_to"))
-			{
-				TargetPosition = GetGlobalMousePosition();
-				InMotion = true;
-				GD.Print("New target position set: ", TargetPosition);
-				_directionUpdated = false;
-				UpdateDirection();
-			}
+        public override void _Ready()
+        {
+            if (PrimaryGunPath != null)
+            {
+                _primaryGun = GetNode<Gun>(PrimaryGunPath);
+                if (_primaryGun == null) GD.PushError("Failed to load the primary gun moron.");
+            }
+        }
 
-			if (@event.IsAction("primary_fire"))
-				if (_primaryGun != null)
-					_primaryGun.Fire();
-		}
+        public override void _UnhandledInput(InputEvent @event)
+        {
+            if (@event.IsActionPressed("move_to"))
+            {
+                TargetPosition = GetGlobalMousePosition();
+                InMotion = true;
+                GD.Print("New target position set: ", TargetPosition);
+                UpdateDirection();
+            }
 
-		public override void _Process(float delta)
-		{
-		}
+            if (@event.IsAction("primary_fire"))
+                if (_primaryGun != null)
+                    _primaryGun.Fire();
+        }
 
-		public override void _PhysicsProcess(float delta)
-		{
-			if (InMotion)
-			{
-				var direction = (TargetPosition - GlobalPosition).Normalized();
-				var velocity = direction * Speed;
+        public override void _Process(float delta)
+        {
+        }
 
-				velocity = MoveAndSlide(velocity);
+        public override void _PhysicsProcess(float delta)
+        {
+            if (InMotion)
+            {
+                var direction = (TargetPosition - GlobalPosition).Normalized();
+                var velocity = direction * Speed;
 
-				if (GlobalPosition.DistanceTo(TargetPosition) <= TargetThresh) InMotion = false;
+                velocity = MoveAndSlide(velocity);
 
-				LookAtPosition = GlobalPosition * velocity.Normalized();
-			}
-		}
+                LookAtPosition = GlobalPosition * velocity.Normalized();
+                var offsetPosition = GlobalPosition + RotOffset.Rotated(Rotation);
 
-		private void UpdateDirection()
-		{
-			if (TargetPosition.x < GlobalPosition.x)
-			{
-				GD.Print($"Clicked to the left, before trans {Scale}");
-				Scale = new Vector2(-1, 1);
-				Rotation = 0;
-			}
-			else
-			{
-				var oldRot = Rotation;
-				GD.Print($"after left flip now flipping back to right Rotation {Rotation}");
-				Scale = new Vector2(1, 1);
-				Rotation = 0;
-			}
+                // var rotAngle= GlobalPosition.AngleToPoint(LookAtPosition) - (0.35f * 2f);
+                // var rotAngle = GlobalPosition.AngleToPoint(LookAtPosition);
+                var rotAngle = (TargetPosition - offsetPosition).Angle();
+                if (GetSlideCount() > 0)
+                    Rotation = Mathf.LerpAngle(Rotation, rotAngle, 0);
+                else
+                    Rotation = Mathf.LerpAngle(Rotation, rotAngle, RotationSpeed * delta);
 
-			GD.Print($"Player Scale: {Scale}, Rotation: {Rotation}");
-		}
 
-		public override void _EnterTree()
-		{
-			Update();
-		}
-	}
+                if (GlobalPosition.DistanceTo(TargetPosition) <= TargetThresh) InMotion = false;
+            }
+        }
+
+        private void UpdateDirection()
+        {
+            if (TargetPosition.x < GlobalPosition.x)
+            {
+                Scale = new Vector2(-1, 1);
+                Rotation = 0;
+            }
+            else
+            {
+                var oldRot = Rotation;
+                Scale = new Vector2(1, 1);
+                Rotation = 0;
+            }
+        }
+
+        public override void _Draw()
+        {
+            // Optional: Draw a debug line to show the rotation offset
+            DrawLine(Vector2.Zero, RotOffset.Rotated(Rotation), Colors.Red, 2);
+        }
+
+        public override void _EnterTree()
+        {
+            Update();
+        }
+    }
 }
