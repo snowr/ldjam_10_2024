@@ -6,4 +6,8 @@
         <Content Include=".gitignore"/>
         <Content Include="run_sectorgrid.sh"/>
     </ItemGroup>
+
+    <ItemGroup>
+        <None Include="**/*.tscn"/>
+    </ItemGroup>
 </Project>
