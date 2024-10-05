@@ -45,7 +45,6 @@ namespace ldjam_2024
             if (Player == null) return false;
             if (AttackLOS.IsColliding())
             {
-                GD.Print("Hello1");
                 if (AttackLOS.GetCollider() == Player)
                 {
                     var distanceToPlayer = GlobalPosition.DistanceTo(Player.GlobalPosition);
@@ -56,7 +55,7 @@ namespace ldjam_2024
             }
 
             var distance = GlobalPosition.DistanceTo(Player.GlobalPosition);
-            GD.Print($"No collision. Distance to player: {distance}");
+            // GD.Print($"No collision. Distance to player: {distance}");
             return distance <= AttackRange;
         }
 
