@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://gun1-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://Gun.cs" type="Script" id=2]
+[ext_resource path="res://ProjectileBullet.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -43,7 +44,8 @@ animations = [ {
 
 [node name="Gun1" type="Node2D"]
 script = ExtResource( 2 )
-RateOfFire = 10000.0
+ProjectileScene = ExtResource( 3 )
+MuzzlePos = Vector2( 26, 16 )
 SpritePath = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

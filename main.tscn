@@ -20,20 +20,17 @@ RateOfFire = 1000.0
 
 [node name="Wall1" parent="." instance=ExtResource( 4 )]
 
-[node name="Wall1" parent="Wall1" instance=ExtResource( 4 )]
-position = Vector2( 136, 72 )
-
 [node name="Wall3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 0, 96 )
 
 [node name="Wall4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 128 )
+position = Vector2( 0, 224 )
 
 [node name="Wall5" parent="." instance=ExtResource( 4 )]
-position = Vector2( 192, 0 )
+position = Vector2( 288, 0 )
 
 [node name="Wall6" parent="." instance=ExtResource( 4 )]
-position = Vector2( 160, 0 )
+position = Vector2( 192, 0 )
 
 [node name="Wall7" parent="." instance=ExtResource( 4 )]
 position = Vector2( 128, 0 )
@@ -54,15 +51,42 @@ position = Vector2( 0, 64 )
 position = Vector2( 0, 32 )
 
 [node name="Wall13" parent="." instance=ExtResource( 4 )]
-position = Vector2( 192, 32 )
-scale = Vector2( 1, 4 )
+position = Vector2( 288, 32 )
+scale = Vector2( 1, 7 )
 
 [node name="Wall14" parent="." instance=ExtResource( 4 )]
-position = Vector2( 32, 128 )
-scale = Vector2( 5, 1 )
+position = Vector2( 32, 224 )
+scale = Vector2( 9, 1 )
 
 [node name="Critter1" parent="." instance=ExtResource( 3 )]
 position = Vector2( 184, 120 )
 
 [node name="Wall2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 104, 72 )
+
+[node name="Critter2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 168, 48 )
+
+[node name="Critter3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 152, 120 )
+
+[node name="Wall15" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, 0 )
+
+[node name="Wall16" parent="." instance=ExtResource( 4 )]
+position = Vector2( 256, 0 )
+
+[node name="Wall17" parent="." instance=ExtResource( 4 )]
+position = Vector2( 136, 72 )
+
+[node name="Wall18" parent="." instance=ExtResource( 4 )]
+position = Vector2( 224, 0 )
+
+[node name="Wall19" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 128 )
+
+[node name="Wall20" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 160 )
+
+[node name="Wall21" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 192 )

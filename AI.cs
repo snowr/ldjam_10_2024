@@ -83,7 +83,7 @@ namespace ldjam_2024
             };
             AddChild(line);
             lines.Add(line);
-            // line.Visible = false;
+            line.Visible = false;
 
             var cast = new RayCast2D();
             AddChild(cast);
@@ -157,7 +157,7 @@ namespace ldjam_2024
                     var prevBestDistance = ToGlobal(Casts[idxMin].CastTo).DistanceTo(Player.GlobalPosition);
                     var currentDistance = ToGlobal(Casts[i].CastTo).DistanceTo(Player.GlobalPosition);
                     // GD.Print($"{idxMin}, {i} || {prevBestDistance} --- {currentDistance} ||| {prevBestDistance - currentDistance}");
-                    
+
                     // Does it make sense to you? No? Probably because you have more brain cells than me.
                     // If the current cast distance to the player is better than the current best distance,
                     // or they are the same index, OR if the previous best distance cast is now colliding with something,
