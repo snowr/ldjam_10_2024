@@ -8,8 +8,9 @@ radius = 6.0
 height = 0.0
 
 [node name="ProjectileBullet" type="KinematicBody2D"]
+position = Vector2( 1, 1 )
 script = ExtResource( 2 )
-Speed = 5.0
+Speed = 100.0
 Damage = 5.0
 SpritePath = NodePath("Sprite")
 
