@@ -18,10 +18,6 @@ PrimaryGunPath = NodePath("Gun1")
 position = Vector2( -16, -8 )
 RateOfFire = 1000.0
 
-[node name="Critter1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 144, 16 )
-z_index = 1
-
 [node name="Wall1" parent="." instance=ExtResource( 4 )]
 position = Vector2( 16, 16 )
 
@@ -55,26 +51,8 @@ position = Vector2( 16, 80 )
 [node name="Wall12" parent="." instance=ExtResource( 4 )]
 position = Vector2( 16, 48 )
 
+[node name="Critter1" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 24 )
+
 [node name="Critter2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 160, 152 )
-z_index = 1
-
-[node name="Critter3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 224, 120 )
-z_index = 1
-
-[node name="Critter4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 128, 120 )
-z_index = 1
-
-[node name="Critter5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 248, 88 )
-z_index = 1
-
-[node name="Critter6" parent="." instance=ExtResource( 3 )]
-position = Vector2( 224, 40 )
-z_index = 1
-
-[node name="Critter7" parent="." instance=ExtResource( 3 )]
-position = Vector2( 32, 176 )
-z_index = 1
+position = Vector2( 184, 104 )

@@ -5,8 +5,8 @@ namespace ldjam_2024
 	[Tool]
 	public class Gun : Node2D
 	{
-		private ulong _lastFireTime;
 		private bool _isFiring;
+		private ulong _lastFireTime;
 		private AnimatedSprite _sprite;
 
 		[Export] public float RateOfFire { get; set; } = 1000f; // milliseconds
@@ -19,11 +19,10 @@ namespace ldjam_2024
 				return;
 
 			_sprite = GetNode<AnimatedSprite>(SpritePath);
-			if (_sprite == null) {GD.PushError("Failed to load sprite for Gun. You idiot.");}
+			if (_sprite == null)
+				GD.PushError("Failed to load sprite for Gun. You idiot.");
 			else
-			{
 				_sprite.Connect("animation_finished", this, nameof(OnAnimationFinished));
-			}
 		}
 
 		public bool CanFire()
@@ -31,7 +30,7 @@ namespace ldjam_2024
 			var time = OS.GetTicksMsec();
 			if (_lastFireTime == 0)
 				return true;
-			return _isFiring == false && (time - _lastFireTime >= RateOfFire);
+			return _isFiring == false && time - _lastFireTime >= RateOfFire;
 		}
 
 		public void Fire()
@@ -46,8 +45,8 @@ namespace ldjam_2024
 			}
 			else
 			{
-				var t = (OS.GetTicksMsec() - _lastFireTime) >= RateOfFire;
-				GD.Print($"Cant Fire {_isFiring == false}  {t} {OS.GetTicksMsec()} {_lastFireTime} {RateOfFire}"); 
+				var t = OS.GetTicksMsec() - _lastFireTime >= RateOfFire;
+				GD.Print($"Cant Fire {_isFiring == false}  {t} {OS.GetTicksMsec()} {_lastFireTime} {RateOfFire}");
 			}
 		}
 
