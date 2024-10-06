@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://HelpScreen.cs" type="Script" id=1]
+[ext_resource path="res://Help.png" type="Texture" id=2]
+
+[node name="HelpScreen" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )

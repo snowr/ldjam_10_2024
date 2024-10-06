@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://main.cs" type="Script" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://Bush.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Grass.tscn" type="PackedScene" id=8]
 [ext_resource path="res://HealthBar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://GameOver.png" type="Texture" id=10]
+[ext_resource path="res://Help.png" type="Texture" id=11]
+[ext_resource path="res://HelpScreen.tscn" type="PackedScene" id=12]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( -16, 40 )
@@ -132,3 +135,20 @@ position = Vector2( 64, 200 )
 
 [node name="Critter1" parent="." instance=ExtResource( 3 )]
 position = Vector2( 192, 40 )
+
+[node name="GameOverBruv" type="Sprite" parent="."]
+visible = false
+position = Vector2( 208, 96 )
+scale = Vector2( 0.25, 0.25 )
+z_index = 5
+texture = ExtResource( 10 )
+
+[node name="HelpScreen" type="Sprite" parent="."]
+visible = false
+position = Vector2( 200, 64 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 11 )
+
+[node name="HelpScreen2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 208, 104 )
+z_index = 5

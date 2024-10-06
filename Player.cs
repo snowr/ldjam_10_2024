@@ -29,6 +29,11 @@ namespace ldjam_2024
 
 		private bool InMotion { get; set; }
 
+		public bool Dead
+		{
+			get { return _health <= 0; }
+		}
+
 		private int _health;
 		private int _maxHealth;
 
@@ -38,12 +43,12 @@ namespace ldjam_2024
 				return;
 			_health = 100;
 			_maxHealth = 100;
-			
+
 			if (HealthBarComponent != null)
 			{
 				HealthBar = GetNode<HealthBar>(HealthBarComponent);
 			}
-			
+
 			if (PrimaryGunPath != null)
 			{
 				_primaryGun = GetNode<Gun>(PrimaryGunPath);
@@ -56,7 +61,10 @@ namespace ldjam_2024
 		{
 			if (Engine.EditorHint)
 				return;
-			
+
+			if (Dead)
+				return;
+
 			if (@event.IsActionPressed("move_to"))
 			{
 				TargetPosition = GetGlobalMousePosition();
@@ -65,8 +73,10 @@ namespace ldjam_2024
 			}
 
 			if (@event.IsAction("primary_fire"))
+			{
 				if (_primaryGun != null)
 					_primaryGun.Fire();
+			}
 		}
 
 		public override void _Process(float delta)
@@ -77,7 +87,9 @@ namespace ldjam_2024
 		{
 			if (Engine.EditorHint)
 				return;
-			
+
+			if (Dead)
+				return;
 			if (InMotion)
 			{
 				var direction = (TargetPosition - GlobalPosition).Normalized();
@@ -134,6 +146,8 @@ namespace ldjam_2024
 
 		public void Hurt(int damage)
 		{
+			if (Dead)
+				return;
 			var oldHealth = _health;
 			_health = Mathf.Clamp(_health - damage, 0, _maxHealth);
 			// GD.Print($"took {damage} damage and health is {_health} prev value {oldHealth}.");

@@ -83,7 +83,7 @@ namespace ldjam_2024
 
         protected void InitCasts()
         {
-            GD.Print("Critter init casts");
+            // GD.Print("Critter init casts");
             var step = Mathf.Pi / 8;
             float[] angles = { step, step * 2, step * 3, step * 4, -step, -step * 2, -step * 3, -step * 4 };
             if (lines.Count == 0)
@@ -220,17 +220,17 @@ namespace ldjam_2024
             TargetPosition = target;
 
             // above and left
-            if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y < GlobalPosition.y)
-            {
-                if (false)
-                {
-                    GD.Print("==1");
-                    Scale = new Vector2(1, -1);
-                    Rotation = 0f;
-                }
-            }
+            // if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y < GlobalPosition.y)
+            // {
+            //     if (false)
+            //     {
+            //         GD.Print("==1");
+            //         Scale = new Vector2(1, -1);
+            //         Rotation = 0f;
+            //     }
+            // }
             // below and left
-            else if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y > GlobalPosition.y)
+            if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y > GlobalPosition.y)
             {
                 // GD.Print("==1");
                 Scale = new Vector2(-1, 1);
