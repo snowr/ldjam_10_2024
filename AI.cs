@@ -64,7 +64,7 @@ namespace ldjam_2024
                 return;
             _timer = new Timer();
             AddChild(_timer);
-            _timer.WaitTime = 1.0f;
+            _timer.WaitTime = .50f;
             _timer.OneShot = false;
             _timer.Connect("timeout", this, nameof(OnInterval));
             _timer.Start();
@@ -215,11 +215,11 @@ namespace ldjam_2024
 
         protected void SetTargetPosition(Vector2 target)
         {
-            GD.Print($"{Player.Position.x}, {GlobalPosition.x}");
+            GD.Print($"{Player.GlobalPosition.x}, {GlobalPosition.x}");
             TargetPosition = target;
 
             // above and left
-            if (Player.Position.x < GlobalPosition.x && Player.Position.y < GlobalPosition.y)
+            if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y < GlobalPosition.y)
             {
                 if (false)
                 {
@@ -229,13 +229,20 @@ namespace ldjam_2024
                 }
             }
             // below and left
-            else if (Player.Position.x < GlobalPosition.x && Player.Position.y > GlobalPosition.y)
+            else if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y > GlobalPosition.y)
+            {
+                GD.Print("==1");
+                Scale = new Vector2(-1, 1);
+                Rotation = 0f;
+            }
+            // above and left
+            else if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y < GlobalPosition.y)
             {
                 GD.Print("==2");
                 Scale = new Vector2(-1, 1);
                 Rotation = 0f;
             }
-            else if (Player.Position.x > GlobalPosition.x)
+            else if (Player.GlobalPosition.x > GlobalPosition.x)
             {
                 GD.Print("==3");
                 Scale = new Vector2(1, 1);
