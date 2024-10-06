@@ -6,7 +6,7 @@ namespace ldjam_2024
 	public class Projectile : KinematicBody2D
 	{
 		[Export] public float Speed { get; set; }
-		[Export] public float Damage { get; set; }
+		[Export] public int Damage { get; set; }
 		[Export] private NodePath SpritePath { get; set; }
 		public Sprite Sprite { get; set; }
 		public Vector2 Direction { get; set; }
@@ -15,6 +15,8 @@ namespace ldjam_2024
 
 		public override void _Ready()
 		{
+			if (Damage == 0)
+				Damage = 10;
 			InMotion = true;
 		}
 
@@ -39,6 +41,10 @@ namespace ldjam_2024
 					{
 						// We hit an enemy AI.
 						aiBody.QueueFree();
+					}
+					else if (body is Player player && !PlayerFired)
+					{
+						player.Hurt(Damage);
 					}
 
 					QueueFree();

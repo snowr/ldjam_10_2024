@@ -115,7 +115,7 @@ namespace ldjam_2024
             cast.Enabled = true;
             cast.CollideWithBodies = true;
             cast.CastTo = direction * range;
-            GD.Print($"Adding cast to as {cast.CastTo}");
+            // GD.Print($"Adding cast to as {cast.CastTo}");
         }
 
         protected bool HasAttackLOSAndRange()
@@ -215,7 +215,7 @@ namespace ldjam_2024
 
         protected void SetTargetPosition(Vector2 target)
         {
-            GD.Print($"{Player.GlobalPosition.x}, {GlobalPosition.x}");
+            // GD.Print($"{Player.GlobalPosition.x}, {GlobalPosition.x}");
             TargetPosition = target;
 
             // above and left
@@ -231,20 +231,20 @@ namespace ldjam_2024
             // below and left
             else if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y > GlobalPosition.y)
             {
-                GD.Print("==1");
+                // GD.Print("==1");
                 Scale = new Vector2(-1, 1);
                 Rotation = 0f;
             }
             // above and left
             else if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y < GlobalPosition.y)
             {
-                GD.Print("==2");
+                // GD.Print("==2");
                 Scale = new Vector2(-1, 1);
                 Rotation = 0f;
             }
             else if (Player.GlobalPosition.x > GlobalPosition.x)
             {
-                GD.Print("==3");
+                // GD.Print("==3");
                 Scale = new Vector2(1, 1);
                 Rotation = 0f;
             }

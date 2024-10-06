@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://main.cs" type="Script" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Wall2.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Bush.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Grass.tscn" type="PackedScene" id=8]
+[ext_resource path="res://HealthBar.tscn" type="PackedScene" id=9]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( -16, 40 )
@@ -17,6 +18,7 @@ script = ExtResource( 1 )
 position = Vector2( 40, 24 )
 z_index = 1
 PrimaryGunPath = NodePath("Gun1")
+HealthBarComponent = NodePath("../HealthBar")
 
 [node name="Gun1" parent="Player" instance=ExtResource( 5 )]
 position = Vector2( 0, 8 )
@@ -166,3 +168,6 @@ z_index = -1
 position = Vector2( 208, 224 )
 scale = Vector2( 12, 1.5 )
 z_index = -1
+
+[node name="HealthBar" parent="." instance=ExtResource( 9 )]
+position = Vector2( 96, 240 )

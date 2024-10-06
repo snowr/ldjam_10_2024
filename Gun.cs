@@ -47,8 +47,8 @@ namespace ldjam_2024
 				if (ProjectileScene != null)
 				{
 					var direction = GlobalTransform.x;
-					GD.Print(
-						$"Firing ============ {direction} | {direction.Normalized()} | {GetParent<Node2D>().Transform.x}");
+					// GD.Print(
+						// $"Firing ============ {direction} | {direction.Normalized()} | {GetParent<Node2D>().Transform.x}");
 					ProjectileManager.Instance.SpawnProjectile(ProjectileScene, ToGlobal(MuzzlePos), direction,
 						PlayerOwned, this);
 				}
@@ -56,7 +56,7 @@ namespace ldjam_2024
 			else
 			{
 				var t = OS.GetTicksMsec() - _lastFireTime >= RateOfFire;
-				GD.Print($"Cant Fire {_isFiring == false}  {t} {OS.GetTicksMsec()} {_lastFireTime} {RateOfFire}");
+				// GD.Print($"Cant Fire {_isFiring == false}  {t} {OS.GetTicksMsec()} {_lastFireTime} {RateOfFire}");
 			}
 		}
 

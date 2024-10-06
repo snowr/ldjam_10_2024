@@ -23,11 +23,27 @@ namespace ldjam_2024
 		public Vector2 RotOffset { get; set; } = new Vector2(0, 0);
 
 		[Export] public NodePath PrimaryGunPath { get; set; }
+		[Export] public NodePath HealthBarComponent { get; set; }
+
+		private HealthBar HealthBar { get; set; }
 
 		private bool InMotion { get; set; }
 
+		private int _health;
+		private int _maxHealth;
+
 		public override void _Ready()
 		{
+			if (Engine.EditorHint)
+				return;
+			_health = 100;
+			_maxHealth = 100;
+			
+			if (HealthBarComponent != null)
+			{
+				HealthBar = GetNode<HealthBar>(HealthBarComponent);
+			}
+			
 			if (PrimaryGunPath != null)
 			{
 				_primaryGun = GetNode<Gun>(PrimaryGunPath);
@@ -38,6 +54,9 @@ namespace ldjam_2024
 
 		public override void _UnhandledInput(InputEvent @event)
 		{
+			if (Engine.EditorHint)
+				return;
+			
 			if (@event.IsActionPressed("move_to"))
 			{
 				TargetPosition = GetGlobalMousePosition();
@@ -58,6 +77,7 @@ namespace ldjam_2024
 		{
 			if (Engine.EditorHint)
 				return;
+			
 			if (InMotion)
 			{
 				var direction = (TargetPosition - GlobalPosition).Normalized();
@@ -110,6 +130,21 @@ namespace ldjam_2024
 		public override void _EnterTree()
 		{
 			Update();
+		}
+
+		public void Hurt(int damage)
+		{
+			var oldHealth = _health;
+			_health = Mathf.Clamp(_health - damage, 0, _maxHealth);
+			// GD.Print($"took {damage} damage and health is {_health} prev value {oldHealth}.");
+			if (HealthBar != null)
+			{
+				for (int i = 100; i > _health; i -= 10)
+				{
+					int idx = (i - 10) / 10;
+					HealthBar.Ticks[idx].Visible = false;
+				}
+			}
 		}
 	}
 }

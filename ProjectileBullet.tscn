@@ -11,7 +11,7 @@ height = 0.0
 position = Vector2( 1, 1 )
 script = ExtResource( 2 )
 Speed = 100.0
-Damage = 5.0
+Damage = 10
 SpritePath = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite" parent="."]
