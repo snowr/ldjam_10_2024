@@ -114,7 +114,7 @@ namespace ldjam_2024
                 if (AttackLOS.GetCollider() == Player)
                 {
                     var distanceToPlayer = GlobalPosition.DistanceTo(Player.GlobalPosition);
-                    return distanceToPlayer <= AttackRange;
+                    return distanceToPlayer <= AttackRange && Math.Abs((GlobalPosition.y - Player.GlobalPosition.y)) <= 2f;
                 }
 
                 return false;

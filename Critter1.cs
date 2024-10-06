@@ -32,7 +32,7 @@ namespace ldjam_2024
             UpdateAttackLOS();
             if (HasAttackLOSAndRange())
             {
-                // GD.Print($"Attacking player with range {AttackRange}");
+                GD.Print($"Attacking player with range {AttackRange}");
                 State = AIState.Attacking;
             }
             else
