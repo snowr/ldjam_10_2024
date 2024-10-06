@@ -24,51 +24,6 @@ HealthBarComponent = NodePath("../HealthBar")
 position = Vector2( 0, 8 )
 z_index = 1
 
-[node name="Critter1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 200, 37 )
-PrimaryGunPath = NodePath("Gun1")
-
-[node name="Gun1" parent="Critter1" instance=ExtResource( 5 )]
-position = Vector2( 0, 8 )
-z_index = 1
-z_as_relative = false
-
-[node name="Critter2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 182, 81 )
-PrimaryGunPath = NodePath("Gun1")
-
-[node name="Gun1" parent="Critter2" instance=ExtResource( 5 )]
-position = Vector2( 0, 8 )
-z_index = 1
-z_as_relative = false
-
-[node name="Critter3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 77, 87 )
-PrimaryGunPath = NodePath("Gun1")
-
-[node name="Gun1" parent="Critter3" instance=ExtResource( 5 )]
-position = Vector2( 0, 8 )
-z_index = 1
-z_as_relative = false
-
-[node name="Critter4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 60, 137 )
-PrimaryGunPath = NodePath("Gun1")
-
-[node name="Gun1" parent="Critter4" instance=ExtResource( 5 )]
-position = Vector2( 0, 8 )
-z_index = 1
-z_as_relative = false
-
-[node name="Critter5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 195, 142 )
-PrimaryGunPath = NodePath("Gun1")
-
-[node name="Gun1" parent="Critter5" instance=ExtResource( 5 )]
-position = Vector2( 0, 8 )
-z_index = 1
-z_as_relative = false
-
 [node name="Wall13" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, 0 )
 scale = Vector2( 12, 1 )
@@ -171,3 +126,9 @@ z_index = -1
 
 [node name="HealthBar" parent="." instance=ExtResource( 9 )]
 position = Vector2( 96, 240 )
+
+[node name="Bush5" parent="." instance=ExtResource( 7 )]
+position = Vector2( 64, 200 )
+
+[node name="Critter1" parent="." instance=ExtResource( 3 )]
+position = Vector2( 192, 40 )

@@ -83,6 +83,7 @@ namespace ldjam_2024
 
         protected void InitCasts()
         {
+            GD.Print("Critter init casts");
             var step = Mathf.Pi / 8;
             float[] angles = { step, step * 2, step * 3, step * 4, -step, -step * 2, -step * 3, -step * 4 };
             if (lines.Count == 0)

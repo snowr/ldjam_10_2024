@@ -10,6 +10,7 @@ namespace ldjam_2024
 
 		public override void _Ready()
 		{
+			GD.Print("Critter waking up");
 			base._Ready();
 			// GetRandomTarget();
 			Speed = 10f;

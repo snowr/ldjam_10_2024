@@ -7,22 +7,21 @@ public class main : Node2D
 
 	public override void _Ready()
 	{
+		var playerNodes = GetTree().GetNodesInGroup("PlayerCharacter");
+        		Player player = null;
 		ProjManager = new ProjectileManager();
 		AddChild(ProjManager);
-		var playerNodes = GetTree().GetNodesInGroup("PlayerCharacter");
-		Player player = null;
+		EnemySpawner spawner = new EnemySpawner();
+		AddChild(spawner);
+		
 		if (playerNodes.Count > 0) player = (Player)playerNodes[0];
 
 		if (player != null)
 		{
 			var enemyNodes = GetTree().GetNodesInGroup("EnemyCharacter");
+			
+		spawner.Player = player;
 			foreach (AI enemy in enemyNodes) enemy.Player = player;
 		}
 	}
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
 }
