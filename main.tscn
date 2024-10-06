@@ -59,6 +59,7 @@ scale = Vector2( 9, 1 )
 
 [node name="Critter1" parent="." instance=ExtResource( 3 )]
 position = Vector2( 224, 80 )
+PrimaryGunPath = NodePath("Gun1")
 
 [node name="Gun1" parent="Critter1" instance=ExtResource( 5 )]
 position = Vector2( 0, 8 )

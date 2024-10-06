@@ -73,12 +73,12 @@ namespace ldjam_2024
                 // var rotAngle = (TargetPosition - offsetPosition).Angle();
                 // if (GetSlideCount() > 0)
                 // {
-                    // Rotation = Mathf.LerpAngle(Rotation, rotAngle, 0);
+                // Rotation = Mathf.LerpAngle(Rotation, rotAngle, 0);
                 // }
                 // else
                 // {
-                    // GD.Print("=====================");
-                    // Rotation = Mathf.LerpAngle(Rotation, rotAngle, RotationSpeed * delta);
+                // GD.Print("=====================");
+                // Rotation = Mathf.LerpAngle(Rotation, rotAngle, RotationSpeed * delta);
                 // }
 
 

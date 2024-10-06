@@ -42,6 +42,9 @@ namespace ldjam_2024
 
         protected Timer _timer;
         private bool _updateDirection;
+        protected Gun _primaryGun;
+
+        [Export] public NodePath PrimaryGunPath { get; set; }
 
         protected void UpdateAttackLOS()
         {
@@ -57,6 +60,8 @@ namespace ldjam_2024
 
         public override void _Ready()
         {
+            if (Engine.EditorHint)
+                return;
             _timer = new Timer();
             AddChild(_timer);
             _timer.WaitTime = 1.0f;
@@ -67,6 +72,13 @@ namespace ldjam_2024
             AddChild(AttackLOS);
             AttackLOS.Enabled = true;
             AttackLOS.CollideWithBodies = true;
+
+            if (PrimaryGunPath != null)
+            {
+                _primaryGun = GetNode<Gun>(PrimaryGunPath);
+                if (_primaryGun == null) throw new Exception("Failed to load the primary gun moron.");
+                _primaryGun.PlayerOwned = false;
+            }
         }
 
         protected void InitCasts()
@@ -114,7 +126,8 @@ namespace ldjam_2024
                 if (AttackLOS.GetCollider() == Player)
                 {
                     var distanceToPlayer = GlobalPosition.DistanceTo(Player.GlobalPosition);
-                    return distanceToPlayer <= AttackRange && Math.Abs((GlobalPosition.y - Player.GlobalPosition.y)) <= 2f;
+                    return distanceToPlayer <= AttackRange &&
+                           Math.Abs(GlobalPosition.y - Player.GlobalPosition.y) <= 2f;
                 }
 
                 return false;
@@ -218,7 +231,6 @@ namespace ldjam_2024
             // below and left
             else if (Player.Position.x < GlobalPosition.x && Player.Position.y > GlobalPosition.y)
             {
-                
                 GD.Print("==2");
                 Scale = new Vector2(-1, 1);
                 Rotation = 0f;

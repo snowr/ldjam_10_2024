@@ -27,6 +27,8 @@ namespace ldjam_2024
 
         public override void _PhysicsProcess(float delta)
         {
+            if (Engine.EditorHint)
+                return;
             if (lines.Count == 0) InitCasts();
 
             UpdateAttackLOS();
@@ -38,6 +40,11 @@ namespace ldjam_2024
             else
                 State = AIState.Idle;
 
+            if (State == AIState.Attacking && _primaryGun != null)
+            {
+                _primaryGun.Fire();
+            }
+
             if (InMotion)
             {
                 // GD.Print($"Target is {TargetPosition}");
@@ -47,8 +54,8 @@ namespace ldjam_2024
                 velocity = MoveAndSlide(velocity);
 
                 // if (State != AIState.Attacking)
-                if(false)
-                // if (true)
+                if (false)
+                    // if (true)
                 {
                     var offsetPosition = GlobalPosition + RotOffset.Rotated(Rotation);
 
