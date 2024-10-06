@@ -14,7 +14,8 @@ namespace ldjam_2024
                 _instance = this;
         }
 
-        public void SpawnProjectile(PackedScene scene, Vector2 globalPos, Vector2 direction, bool playerFired, Node2D firedFrom)
+        public void SpawnProjectile(PackedScene scene, Vector2 globalPos, Vector2 direction, bool playerFired,
+            Node2D firedFrom)
         {
             var projectile = scene.Instance() as Projectile;
             if (projectile == null)

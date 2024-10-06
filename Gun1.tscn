@@ -45,10 +45,10 @@ animations = [ {
 [node name="Gun1" type="Node2D"]
 script = ExtResource( 2 )
 ProjectileScene = ExtResource( 3 )
-MuzzlePos = Vector2( 26, 16 )
+MuzzlePos = Vector2( 26, 0 )
 SpritePath = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 16, 16 )
 frames = SubResource( 5 )
 animation = "idle"
+speed_scale = 3.0

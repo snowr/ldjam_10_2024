@@ -27,7 +27,7 @@ namespace ldjam_2024
 
         public Random Rng { get; set; }
         public Vector2 LookAtPosition { get; set; }
-        public Vector2 TargetPosition { get; set; } = Vector2.Zero;
+        private Vector2 TargetPosition { get; set; } = Vector2.Zero;
         public Node2D Player { get; set; }
         public float Speed { get; set; } = 100f;
         public float TargetThresh { get; set; } = 2f;
@@ -40,21 +40,33 @@ namespace ldjam_2024
 
         public AIState State { get; set; } = AIState.Idle;
 
+        protected Timer _timer;
+        private bool _updateDirection;
+
         protected void UpdateAttackLOS()
         {
-            return;
             if (Player == null) return;
             var dirToPlayer = (Player.GlobalPosition - GlobalPosition).Normalized();
             AttackLOS.CastTo = dirToPlayer * AttackRange;
             AttackLOS.ForceRaycastUpdate();
         }
 
+        public override void _Process(float delta)
+        {
+        }
+
         public override void _Ready()
         {
-            // AddChild(AttackLOS);
-            // AttackLOS.Enabled = true;
-            // AttackLOS.CollideWithAreas = true;
-            // AttackLOS.CollideWithBodies = true;
+            _timer = new Timer();
+            AddChild(_timer);
+            _timer.WaitTime = 1.0f;
+            _timer.OneShot = false;
+            _timer.Connect("timeout", this, nameof(OnInterval));
+            _timer.Start();
+
+            AddChild(AttackLOS);
+            AttackLOS.Enabled = true;
+            AttackLOS.CollideWithBodies = true;
         }
 
         protected void InitCasts()
@@ -175,9 +187,58 @@ namespace ldjam_2024
 
             if (found)
             {
-                TargetPosition = Casts[idxMin].ToGlobal(Casts[idxMin].CastTo);
+                var target = Casts[idxMin].ToGlobal(Casts[idxMin].CastTo);
+                // TargetPosition = Casts[idxMin].ToGlobal(Casts[idxMin].CastTo);
+                if (_updateDirection)
+                {
+                    // GD.Print("====================");
+                    SetTargetPosition(target);
+                    _updateDirection = false;
+                }
+
                 InMotion = true;
             }
+        }
+
+        protected void SetTargetPosition(Vector2 target)
+        {
+            GD.Print($"{Player.Position.x}, {GlobalPosition.x}");
+            TargetPosition = target;
+
+            // above and left
+            if (Player.Position.x < GlobalPosition.x && Player.Position.y < GlobalPosition.y)
+            {
+                if (false)
+                {
+                    GD.Print("==1");
+                    Scale = new Vector2(1, -1);
+                    Rotation = 0f;
+                }
+            }
+            // below and left
+            else if (Player.Position.x < GlobalPosition.x && Player.Position.y > GlobalPosition.y)
+            {
+                
+                GD.Print("==2");
+                Scale = new Vector2(-1, 1);
+                Rotation = 0f;
+            }
+            else if (Player.Position.x > GlobalPosition.x)
+            {
+                GD.Print("==3");
+                Scale = new Vector2(1, 1);
+                Rotation = 0f;
+            }
+        }
+
+        public Vector2 GetTargetPosition()
+        {
+            return TargetPosition;
+        }
+
+        protected void OnInterval()
+        {
+            _updateDirection = true;
         }
     }
 }

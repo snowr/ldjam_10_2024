@@ -10,13 +10,12 @@
 script = ExtResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 64, 56 )
+position = Vector2( 56, 64 )
 z_index = 1
 PrimaryGunPath = NodePath("Gun1")
 
 [node name="Gun1" parent="Player" instance=ExtResource( 5 )]
-position = Vector2( -16, -8 )
-RateOfFire = 1000.0
+position = Vector2( 0, 8 )
 
 [node name="Wall1" parent="." instance=ExtResource( 4 )]
 
@@ -59,16 +58,15 @@ position = Vector2( 32, 224 )
 scale = Vector2( 9, 1 )
 
 [node name="Critter1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 184, 120 )
+position = Vector2( 224, 80 )
+
+[node name="Gun1" parent="Critter1" instance=ExtResource( 5 )]
+position = Vector2( 0, 8 )
+z_index = -1
+z_as_relative = false
 
 [node name="Wall2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 104, 72 )
-
-[node name="Critter2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 168, 48 )
-
-[node name="Critter3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 152, 120 )
 
 [node name="Wall15" parent="." instance=ExtResource( 4 )]
 position = Vector2( 160, 0 )

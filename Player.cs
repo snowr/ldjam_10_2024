@@ -13,9 +13,9 @@ namespace ldjam_2024
             AddToGroup("PlayerCharacter");
         }
 
-        public Vector2 LookAtPosition { get; set; }
+        // public Vector2 LookAtPosition { get; set; }
         public Vector2 TargetPosition { get; set; }
-        public float Speed { get; set; } = 30f;
+        public float Speed { get; set; } = 60f;
         public float TargetThresh { get; set; } = 2f;
         public float RotationSpeed { get; set; } = 5.0f;
 
@@ -56,6 +56,8 @@ namespace ldjam_2024
 
         public override void _PhysicsProcess(float delta)
         {
+            if (Engine.EditorHint)
+                return;
             if (InMotion)
             {
                 var direction = (TargetPosition - GlobalPosition).Normalized();
@@ -63,16 +65,21 @@ namespace ldjam_2024
 
                 velocity = MoveAndSlide(velocity);
 
-                LookAtPosition = GlobalPosition * velocity.Normalized();
+                // LookAtPosition = GlobalPosition * velocity.Normalized();
                 var offsetPosition = GlobalPosition + RotOffset.Rotated(Rotation);
 
                 // var rotAngle= GlobalPosition.AngleToPoint(LookAtPosition) - (0.35f * 2f);
                 // var rotAngle = GlobalPosition.AngleToPoint(LookAtPosition);
-                var rotAngle = (TargetPosition - offsetPosition).Angle();
-                if (GetSlideCount() > 0)
-                    Rotation = Mathf.LerpAngle(Rotation, rotAngle, 0);
-                else
-                    Rotation = Mathf.LerpAngle(Rotation, rotAngle, RotationSpeed * delta);
+                // var rotAngle = (TargetPosition - offsetPosition).Angle();
+                // if (GetSlideCount() > 0)
+                // {
+                    // Rotation = Mathf.LerpAngle(Rotation, rotAngle, 0);
+                // }
+                // else
+                // {
+                    // GD.Print("=====================");
+                    // Rotation = Mathf.LerpAngle(Rotation, rotAngle, RotationSpeed * delta);
+                // }
 
 
                 if (GlobalPosition.DistanceTo(TargetPosition) <= TargetThresh) InMotion = false;

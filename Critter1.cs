@@ -4,11 +4,14 @@ namespace ldjam_2024
 {
     public class Critter1 : AI
     {
+        public Vector2 RotOffset { get; set; } = new Vector2(16, 0);
+
+        public float RotationSpeed { get; set; } = 5.0f;
+
         public override void _Ready()
         {
             base._Ready();
             // GetRandomTarget();
-            AttackRange = 30f;
             Speed = 10f;
         }
 
@@ -28,22 +31,42 @@ namespace ldjam_2024
 
             UpdateAttackLOS();
             if (HasAttackLOSAndRange())
-                // GD.Print("Attacking player");
+            {
+                // GD.Print($"Attacking player with range {AttackRange}");
                 State = AIState.Attacking;
+            }
             else
                 State = AIState.Idle;
 
             if (InMotion)
             {
                 // GD.Print($"Target is {TargetPosition}");
-                var direction = (TargetPosition - GlobalPosition).Normalized();
+                var direction = (GetTargetPosition() - GlobalPosition).Normalized();
                 var velocity = direction * Speed;
 
                 velocity = MoveAndSlide(velocity);
 
-                if (GlobalPosition.DistanceTo(TargetPosition) <= TargetThresh) InMotion = false;
+                // if (State != AIState.Attacking)
+                if(false)
+                // if (true)
+                {
+                    var offsetPosition = GlobalPosition + RotOffset.Rotated(Rotation);
 
-                //LookAtPosition = GlobalPosition * velocity.Normalized();
+                    var rotAngle = (Player.GlobalPosition - offsetPosition).Angle();
+                    // var rotAngle = (Player.GlobalPosition).Angle();
+                    if (GetSlideCount() > 0)
+                    {
+                        // Rotation = Mathf.Clamp(Mathf.LerpAngle(Rotation, rotAngle, 0), -Mathf.Pi/4, Mathf.Pi/4);
+                        Rotation = Mathf.LerpAngle(Rotation, rotAngle, 0);
+                    }
+                    else
+                    {
+                        // Rotation = Mathf.Clamp(Mathf.LerpAngle(Rotation, rotAngle, RotationSpeed * delta), -Mathf.Pi/4, Mathf.Pi/4);
+                        Rotation = Mathf.LerpAngle(Rotation, rotAngle, RotationSpeed * delta);
+                    }
+                }
+
+                if (GlobalPosition.DistanceTo(GetTargetPosition()) <= TargetThresh) InMotion = false;
             }
 
             Crawl(delta);
