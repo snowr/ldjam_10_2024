@@ -1,91 +1,163 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://main.cs" type="Script" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Critter1.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Wall1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Wall3.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Gun1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Wall2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Bush.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Grass.tscn" type="PackedScene" id=8]
 
 [node name="Node2D" type="Node2D"]
+position = Vector2( -16, 40 )
 script = ExtResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 56, 64 )
+position = Vector2( 40, 24 )
 z_index = 1
 PrimaryGunPath = NodePath("Gun1")
 
 [node name="Gun1" parent="Player" instance=ExtResource( 5 )]
 position = Vector2( 0, 8 )
-
-[node name="Wall1" parent="." instance=ExtResource( 4 )]
-
-[node name="Wall3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 96 )
-
-[node name="Wall4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 224 )
-
-[node name="Wall5" parent="." instance=ExtResource( 4 )]
-position = Vector2( 288, 0 )
-
-[node name="Wall6" parent="." instance=ExtResource( 4 )]
-position = Vector2( 192, 0 )
-
-[node name="Wall7" parent="." instance=ExtResource( 4 )]
-position = Vector2( 128, 0 )
-
-[node name="Wall8" parent="." instance=ExtResource( 4 )]
-position = Vector2( 96, 0 )
-
-[node name="Wall9" parent="." instance=ExtResource( 4 )]
-position = Vector2( 64, 0 )
-
-[node name="Wall10" parent="." instance=ExtResource( 4 )]
-position = Vector2( 32, 0 )
-
-[node name="Wall11" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 64 )
-
-[node name="Wall12" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 32 )
-
-[node name="Wall13" parent="." instance=ExtResource( 4 )]
-position = Vector2( 288, 32 )
-scale = Vector2( 1, 7 )
-
-[node name="Wall14" parent="." instance=ExtResource( 4 )]
-position = Vector2( 32, 224 )
-scale = Vector2( 9, 1 )
+z_index = 1
 
 [node name="Critter1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 224, 80 )
+position = Vector2( 200, 37 )
 PrimaryGunPath = NodePath("Gun1")
 
 [node name="Gun1" parent="Critter1" instance=ExtResource( 5 )]
 position = Vector2( 0, 8 )
-z_index = -1
+z_index = 1
 z_as_relative = false
 
-[node name="Wall2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 104, 72 )
+[node name="Critter2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 182, 81 )
+PrimaryGunPath = NodePath("Gun1")
 
-[node name="Wall15" parent="." instance=ExtResource( 4 )]
-position = Vector2( 160, 0 )
+[node name="Gun1" parent="Critter2" instance=ExtResource( 5 )]
+position = Vector2( 0, 8 )
+z_index = 1
+z_as_relative = false
 
-[node name="Wall16" parent="." instance=ExtResource( 4 )]
+[node name="Critter3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 77, 87 )
+PrimaryGunPath = NodePath("Gun1")
+
+[node name="Gun1" parent="Critter3" instance=ExtResource( 5 )]
+position = Vector2( 0, 8 )
+z_index = 1
+z_as_relative = false
+
+[node name="Critter4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 60, 137 )
+PrimaryGunPath = NodePath("Gun1")
+
+[node name="Gun1" parent="Critter4" instance=ExtResource( 5 )]
+position = Vector2( 0, 8 )
+z_index = 1
+z_as_relative = false
+
+[node name="Critter5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 195, 142 )
+PrimaryGunPath = NodePath("Gun1")
+
+[node name="Gun1" parent="Critter5" instance=ExtResource( 5 )]
+position = Vector2( 0, 8 )
+z_index = 1
+z_as_relative = false
+
+[node name="Wall13" parent="." instance=ExtResource( 6 )]
+position = Vector2( 168, 0 )
+scale = Vector2( 9, 1 )
+z_index = -1
+
+[node name="Wall14" parent="." instance=ExtResource( 6 )]
+position = Vector2( 168, 32 )
+scale = Vector2( 9, 1 )
+z_index = -1
+
+[node name="Wall22" parent="." instance=ExtResource( 6 )]
+position = Vector2( 168, 64 )
+scale = Vector2( 9, 1 )
+z_index = -1
+
+[node name="Wall23" parent="." instance=ExtResource( 6 )]
+position = Vector2( 168, 96 )
+scale = Vector2( 9, 1 )
+z_index = -1
+
+[node name="Wall24" parent="." instance=ExtResource( 6 )]
+position = Vector2( 168, 128 )
+scale = Vector2( 9, 1 )
+z_index = -1
+
+[node name="Wall25" parent="." instance=ExtResource( 6 )]
+position = Vector2( 168, 160 )
+scale = Vector2( 9, 1 )
+z_index = -1
+
+[node name="Wall26" parent="." instance=ExtResource( 6 )]
+position = Vector2( 168, 192 )
+scale = Vector2( 9, 1 )
+z_index = -1
+
+[node name="Wall27" parent="." instance=ExtResource( 6 )]
+position = Vector2( 168, -24 )
+scale = Vector2( 9, 1 )
+z_index = -1
+
+[node name="Wall15" parent="." instance=ExtResource( 6 )]
+position = Vector2( 320, 80 )
+scale = Vector2( 0.5, 8 )
+z_index = -1
+
+[node name="BlockingWall1" parent="." instance=ExtResource( 4 )]
+position = Vector2( 16, 64 )
+scale = Vector2( 0.5, 10 )
+
+[node name="BlockingWall2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 336, 80 )
+scale = Vector2( 0.5, 10 )
+
+[node name="BlockingWall3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 168, -48 )
+rotation = 1.5708
+scale = Vector2( 0.5, 10 )
+
+[node name="BlockingWall4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 176, 216 )
+rotation = 1.5708
+scale = Vector2( 0.5, 10 )
+
+[node name="Bush" parent="." instance=ExtResource( 7 )]
+position = Vector2( 120, 40 )
+
+[node name="Bush2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 256, 0 )
 
-[node name="Wall17" parent="." instance=ExtResource( 4 )]
-position = Vector2( 136, 72 )
+[node name="Bush3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 256, 176 )
 
-[node name="Wall18" parent="." instance=ExtResource( 4 )]
-position = Vector2( 224, 0 )
+[node name="Bush4" parent="." instance=ExtResource( 7 )]
+position = Vector2( 128, 136 )
 
-[node name="Wall19" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 128 )
+[node name="Grass" parent="." instance=ExtResource( 8 )]
+position = Vector2( 88, 56 )
+z_index = -1
 
-[node name="Wall20" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 160 )
+[node name="Grass2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 80, 176 )
+z_index = -1
 
-[node name="Wall21" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 192 )
+[node name="Grass3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 72, -16 )
+z_index = -1
+
+[node name="Grass4" parent="." instance=ExtResource( 8 )]
+position = Vector2( 264, 72 )
+z_index = -1
+
+[node name="Grass5" parent="." instance=ExtResource( 8 )]
+position = Vector2( 192, 0 )
+z_index = -1
