@@ -69,66 +69,66 @@ z_as_relative = false
 
 [node name="Wall13" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, 0 )
-scale = Vector2( 9, 1 )
+scale = Vector2( 12, 1 )
 z_index = -1
 
 [node name="Wall14" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, 32 )
-scale = Vector2( 9, 1 )
+scale = Vector2( 12, 1 )
 z_index = -1
 
 [node name="Wall22" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, 64 )
-scale = Vector2( 9, 1 )
+scale = Vector2( 12, 1 )
 z_index = -1
 
 [node name="Wall23" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, 96 )
-scale = Vector2( 9, 1 )
+scale = Vector2( 12, 1 )
 z_index = -1
 
 [node name="Wall24" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, 128 )
-scale = Vector2( 9, 1 )
+scale = Vector2( 12, 1 )
 z_index = -1
 
 [node name="Wall25" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, 160 )
-scale = Vector2( 9, 1 )
+scale = Vector2( 12, 1 )
 z_index = -1
 
 [node name="Wall26" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, 192 )
-scale = Vector2( 9, 1 )
+scale = Vector2( 12, 1 )
 z_index = -1
 
 [node name="Wall27" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, -24 )
-scale = Vector2( 9, 1 )
+scale = Vector2( 12, 1 )
 z_index = -1
 
 [node name="Wall15" parent="." instance=ExtResource( 6 )]
 position = Vector2( 320, 80 )
-scale = Vector2( 0.5, 8 )
+scale = Vector2( 12, 8 )
 z_index = -1
 
 [node name="BlockingWall1" parent="." instance=ExtResource( 4 )]
-position = Vector2( 16, 64 )
-scale = Vector2( 0.5, 10 )
+position = Vector2( 16, 72 )
+scale = Vector2( 0.5, 12 )
 
 [node name="BlockingWall2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 336, 80 )
-scale = Vector2( 0.5, 10 )
+position = Vector2( 408, 80 )
+scale = Vector2( 0.5, 12 )
 
 [node name="BlockingWall3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 168, -48 )
+position = Vector2( 216, -48 )
 rotation = 1.5708
-scale = Vector2( 0.5, 10 )
+scale = Vector2( 0.5, 12 )
 
 [node name="BlockingWall4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 176, 216 )
+position = Vector2( 208, 256 )
 rotation = 1.5708
-scale = Vector2( 0.5, 10 )
+scale = Vector2( 0.5, 12 )
 
 [node name="Bush" parent="." instance=ExtResource( 7 )]
 position = Vector2( 120, 40 )
@@ -143,21 +143,26 @@ position = Vector2( 256, 176 )
 position = Vector2( 128, 136 )
 
 [node name="Grass" parent="." instance=ExtResource( 8 )]
-position = Vector2( 88, 56 )
+position = Vector2( 96, -16 )
 z_index = -1
 
 [node name="Grass2" parent="." instance=ExtResource( 8 )]
-position = Vector2( 80, 176 )
+position = Vector2( 280, 48 )
 z_index = -1
 
 [node name="Grass3" parent="." instance=ExtResource( 8 )]
-position = Vector2( 72, -16 )
+position = Vector2( 48, 56 )
 z_index = -1
 
 [node name="Grass4" parent="." instance=ExtResource( 8 )]
-position = Vector2( 264, 72 )
+position = Vector2( 208, 104 )
 z_index = -1
 
 [node name="Grass5" parent="." instance=ExtResource( 8 )]
-position = Vector2( 192, 0 )
+position = Vector2( 96, 184 )
+z_index = -1
+
+[node name="Wall28" parent="." instance=ExtResource( 6 )]
+position = Vector2( 208, 224 )
+scale = Vector2( 12, 1.5 )
 z_index = -1

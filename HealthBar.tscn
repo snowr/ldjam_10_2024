@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Heart-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://HealthBar.cs" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="HealthBar" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Tick6" type="AnimatedSprite" parent="."]
+position = Vector2( 120, 0 )
+frames = SubResource( 3 )
+speed_scale = 0.5
+
+[node name="Tick1" type="AnimatedSprite" parent="."]
+frames = SubResource( 3 )
+speed_scale = 0.5
+
+[node name="Tick10" type="AnimatedSprite" parent="."]
+position = Vector2( 216, 0 )
+frames = SubResource( 3 )
+speed_scale = 0.5
+
+[node name="Tick9" type="AnimatedSprite" parent="."]
+position = Vector2( 192, 0 )
+frames = SubResource( 3 )
+speed_scale = 0.5
+
+[node name="Tick8" type="AnimatedSprite" parent="."]
+position = Vector2( 168, 0 )
+frames = SubResource( 3 )
+speed_scale = 0.5
+
+[node name="Tick7" type="AnimatedSprite" parent="."]
+position = Vector2( 144, 0 )
+frames = SubResource( 3 )
+speed_scale = 0.5
+
+[node name="Tick5" type="AnimatedSprite" parent="."]
+position = Vector2( 96, 0 )
+frames = SubResource( 3 )
+speed_scale = 0.5
+
+[node name="Tick4" type="AnimatedSprite" parent="."]
+position = Vector2( 72, 0 )
+frames = SubResource( 3 )
+speed_scale = 0.5
+
+[node name="Tick3" type="AnimatedSprite" parent="."]
+position = Vector2( 48, 0 )
+frames = SubResource( 3 )
+speed_scale = 0.5
+
+[node name="Tick2" type="AnimatedSprite" parent="."]
+position = Vector2( 24, 0 )
+frames = SubResource( 3 )
+speed_scale = 0.5
