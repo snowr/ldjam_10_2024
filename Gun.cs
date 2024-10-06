@@ -65,7 +65,6 @@ namespace ldjam_2024
 			if (_sprite.Animation == "fire")
 			{
 				_isFiring = false;
-				// TODO: If we want idle animation, switch to it here and switch the state
 				_sprite.Play("idle");
 			}
 		}
