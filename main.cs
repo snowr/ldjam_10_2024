@@ -40,20 +40,4 @@ public class main : Node2D
 			GetTree().Paused = true;
 		}
 	}
-
-	// public override void _UnhandledInput(InputEvent @event)
-	// {
-	// 	if (@event.IsAction("show_help"))
-	// 	{
-	// 		_helpScreen.Visible = !_helpScreen.Visible;
-	// 		if (!_helpScreen.Visible)
-	// 		{
-	// 			GetTree().Paused = false;
-	// 		}
-	// 		else
-	// 		{
-	// 			GetTree().Paused = true;
-	// 		}
-	// 	}
-	// }
 }

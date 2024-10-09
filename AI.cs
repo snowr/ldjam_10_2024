@@ -219,16 +219,6 @@ namespace ldjam_2024
             // GD.Print($"{Player.GlobalPosition.x}, {GlobalPosition.x}");
             TargetPosition = target;
 
-            // above and left
-            // if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y < GlobalPosition.y)
-            // {
-            //     if (false)
-            //     {
-            //         GD.Print("==1");
-            //         Scale = new Vector2(1, -1);
-            //         Rotation = 0f;
-            //     }
-            // }
             // below and left
             if (Player.GlobalPosition.x < GlobalPosition.x && Player.GlobalPosition.y > GlobalPosition.y)
             {

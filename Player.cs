@@ -97,22 +97,7 @@ namespace ldjam_2024
 
 				velocity = MoveAndSlide(velocity);
 
-				// LookAtPosition = GlobalPosition * velocity.Normalized();
 				var offsetPosition = GlobalPosition + RotOffset.Rotated(Rotation);
-
-				// var rotAngle= GlobalPosition.AngleToPoint(LookAtPosition) - (0.35f * 2f);
-				// var rotAngle = GlobalPosition.AngleToPoint(LookAtPosition);
-				// var rotAngle = (TargetPosition - offsetPosition).Angle();
-				// if (GetSlideCount() > 0)
-				// {
-				// Rotation = Mathf.LerpAngle(Rotation, rotAngle, 0);
-				// }
-				// else
-				// {
-				// GD.Print("=====================");
-				// Rotation = Mathf.LerpAngle(Rotation, rotAngle, RotationSpeed * delta);
-				// }
-
 
 				if (GlobalPosition.DistanceTo(TargetPosition) <= TargetThresh) InMotion = false;
 			}
@@ -135,7 +120,6 @@ namespace ldjam_2024
 
 		public override void _Draw()
 		{
-			// Optional: Draw a debug line to show the rotation offset
 			DrawLine(Vector2.Zero, RotOffset.Rotated(Rotation), Colors.Red, 2);
 		}
 
