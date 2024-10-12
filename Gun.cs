@@ -5,9 +5,9 @@ namespace ldjam_2024
 	[Tool]
 	public class Gun : Node2D
 	{
-		private bool _isFiring;
-		private ulong _lastFireTime;
-		private AnimatedSprite _sprite;
+		protected bool _isFiring;
+		protected ulong _lastFireTime;
+		protected AnimatedSprite _sprite;
 		[Export] public PackedScene ProjectileScene { get; set; }
 		[Export] public Vector2 MuzzlePos { get; set; }
 
@@ -28,7 +28,7 @@ namespace ldjam_2024
 				_sprite.Connect("animation_finished", this, nameof(OnAnimationFinished));
 		}
 
-		public bool CanFire()
+		public virtual bool CanFire()
 		{
 			var time = OS.GetTicksMsec();
 			if (_lastFireTime == 0)
@@ -36,7 +36,7 @@ namespace ldjam_2024
 			return _isFiring == false && time - _lastFireTime >= RateOfFire;
 		}
 
-		public void Fire()
+		public virtual void Fire()
 		{
 			if (CanFire())
 			{
@@ -48,7 +48,7 @@ namespace ldjam_2024
 				{
 					var direction = GlobalTransform.x;
 					// GD.Print(
-						// $"Firing ============ {direction} | {direction.Normalized()} | {GetParent<Node2D>().Transform.x}");
+					// $"Firing ============ {direction} | {direction.Normalized()} | {GetParent<Node2D>().Transform.x}");
 					ProjectileManager.Instance.SpawnProjectile(ProjectileScene, ToGlobal(MuzzlePos), direction,
 						PlayerOwned, this);
 				}
@@ -60,7 +60,7 @@ namespace ldjam_2024
 			}
 		}
 
-		private void OnAnimationFinished()
+		protected virtual void OnAnimationFinished()
 		{
 			if (_sprite.Animation == "fire")
 			{

@@ -46,6 +46,7 @@ animations = [ {
 script = ExtResource( 2 )
 ProjectileScene = ExtResource( 3 )
 MuzzlePos = Vector2( 12, 0 )
+RateOfFire = 500.0
 SpritePath = NodePath("AnimatedSprite")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

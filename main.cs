@@ -6,16 +6,16 @@ public class main : Node2D
 {
 	public ProjectileManager ProjManager { get; set; }
 	private Sprite _helpScreen;
-	
+
 	private Sprite _gameOverBruv;
-		Player player = null;
+	private Player player = null;
 
 	public override void _Ready()
 	{
 		var playerNodes = GetTree().GetNodesInGroup("PlayerCharacter");
 		ProjManager = new ProjectileManager();
 		AddChild(ProjManager);
-		EnemySpawner spawner = new EnemySpawner();
+		var spawner = new EnemySpawner();
 		AddChild(spawner);
 
 		if (playerNodes.Count > 0) player = (Player)playerNodes[0];

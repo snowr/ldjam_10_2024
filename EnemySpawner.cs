@@ -24,7 +24,7 @@ namespace ldjam_2024
             new Vector2(352, 8),
             new Vector2(264, 88),
             new Vector2(184, 200),
-            new Vector2(64, 200),
+            new Vector2(64, 200)
         };
 
         public override void _Ready()
@@ -35,12 +35,11 @@ namespace ldjam_2024
             _timer.OneShot = false;
             _timer.Connect("timeout", this, nameof(OnInterval));
             _timer.Start();
-
         }
 
         protected void OnInterval()
         {
-            int aiCount = GetParent().GetChildren().Cast<Node>().Count(x => x is AI);
+            var aiCount = GetParent().GetChildren().Cast<Node>().Count(x => x is AI);
             if (aiCount >= _maxAICount)
                 return;
             var instance = _critterScene.Instance<Critter1>();

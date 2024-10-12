@@ -6,7 +6,9 @@ namespace ldjam_2024
 	[Tool]
 	public class Player : KinematicBody2D
 	{
-		private Gun _primaryGun;
+		protected Gun _primaryGun;
+		protected Gun _weapon1;
+		protected Gun _weapon2;
 
 		public Player()
 		{
@@ -22,17 +24,15 @@ namespace ldjam_2024
 		// public Vector2 RotOffset { get; set; } = new Vector2(1, 0);
 		public Vector2 RotOffset { get; set; } = new Vector2(0, 0);
 
-		[Export] public NodePath PrimaryGunPath { get; set; }
+		[Export] public NodePath Weapon1Path { get; set; }
+		[Export] public NodePath Weapon2Path { get; set; }
 		[Export] public NodePath HealthBarComponent { get; set; }
 
 		private HealthBar HealthBar { get; set; }
 
 		private bool InMotion { get; set; }
 
-		public bool Dead
-		{
-			get { return _health <= 0; }
-		}
+		public bool Dead => _health <= 0;
 
 		private int _health;
 		private int _maxHealth;
@@ -49,11 +49,19 @@ namespace ldjam_2024
 				HealthBar = GetNode<HealthBar>(HealthBarComponent);
 			}
 
-			if (PrimaryGunPath != null)
+			if (Weapon1Path != null)
 			{
-				_primaryGun = GetNode<Gun>(PrimaryGunPath);
-				if (_primaryGun == null) throw new Exception("Failed to load the primary gun moron.");
-				_primaryGun.PlayerOwned = true;
+				_weapon1 = GetNode<Gun>(Weapon1Path);
+				if (_weapon1 == null) throw new Exception("Failed to load the primary gun moron.");
+				_weapon1.PlayerOwned = true;
+				_primaryGun = _weapon1;
+			}
+			if (Weapon2Path != null)
+			{
+				_weapon2 = GetNode<Gun>(Weapon2Path);
+				if (_weapon2 == null) throw new Exception("Failed to load weapon 2.");
+				_weapon2.PlayerOwned = true;
+				_weapon2.Visible = false;
 			}
 		}
 
@@ -76,6 +84,20 @@ namespace ldjam_2024
 			{
 				if (_primaryGun != null)
 					_primaryGun.Fire();
+			}
+
+			if (@event.IsActionPressed("weapon_slot_1"))
+			{
+				_primaryGun.Visible = false;
+				_primaryGun = _weapon1;
+				_primaryGun.Visible = true;
+			}
+
+			if (@event.IsActionPressed("weapon_slot_2"))
+			{
+				_primaryGun.Visible = false;
+				_primaryGun = _weapon2;
+				_primaryGun.Visible = true;
 			}
 		}
 
@@ -137,9 +159,9 @@ namespace ldjam_2024
 			// GD.Print($"took {damage} damage and health is {_health} prev value {oldHealth}.");
 			if (HealthBar != null)
 			{
-				for (int i = 100; i > _health; i -= 10)
+				for (var i = 100; i > _health; i -= 10)
 				{
-					int idx = (i - 10) / 10;
+					var idx = (i - 10) / 10;
 					HealthBar.Ticks[idx].Visible = false;
 				}
 			}
