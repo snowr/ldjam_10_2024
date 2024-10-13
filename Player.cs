@@ -10,6 +10,8 @@ namespace ldjam_2024
 		protected Gun _weapon1;
 		protected Gun _weapon2;
 
+		public Vector2 Velocity = Vector2.Zero;
+
 		public Player()
 		{
 			AddToGroup("PlayerCharacter");
@@ -17,7 +19,7 @@ namespace ldjam_2024
 
 		// public Vector2 LookAtPosition { get; set; }
 		public Vector2 TargetPosition { get; set; }
-		public float Speed { get; set; } = 60f;
+		public float Speed { get; set; } = 50f;
 		public float TargetThresh { get; set; } = 2f;
 		public float RotationSpeed { get; set; } = 5.0f;
 
@@ -56,6 +58,7 @@ namespace ldjam_2024
 				_weapon1.PlayerOwned = true;
 				_primaryGun = _weapon1;
 			}
+
 			if (Weapon2Path != null)
 			{
 				_weapon2 = GetNode<Gun>(Weapon2Path);
@@ -73,12 +76,22 @@ namespace ldjam_2024
 			if (Dead)
 				return;
 
-			if (@event.IsActionPressed("move_to"))
+			// if (@event.IsActionPressed("move_to"))
+			// {
+			// 	TargetPosition = GetGlobalMousePosition();
+			// 	InMotion = true;
+			// 	UpdateDirection();
+			// }
+
+			if (@event is InputEventKey keyEvent)
 			{
-				TargetPosition = GetGlobalMousePosition();
-				InMotion = true;
-				UpdateDirection();
+				UpdateVelocity(keyEvent.IsAction("move_right"), ref Velocity.x, 1, keyEvent.Pressed);
+				UpdateVelocity(keyEvent.IsAction("move_left"), ref Velocity.x, -1, keyEvent.Pressed);
+				UpdateVelocity(keyEvent.IsAction("move_down"), ref Velocity.y, 1, keyEvent.Pressed);
+				UpdateVelocity(keyEvent.IsAction("move_up"), ref Velocity.y, -1, keyEvent.Pressed);
 			}
+
+			// if(@event.IsAction("move_right") && Velocity.x 
 
 			if (@event.IsAction("primary_fire"))
 			{
@@ -101,6 +114,14 @@ namespace ldjam_2024
 			}
 		}
 
+		private void UpdateVelocity(bool isKeyPressed, ref float velocityComponent, float direction, bool isPressed)
+		{
+			if (isKeyPressed)
+			{
+				velocityComponent = isPressed ? direction : 0;
+			}
+		}
+
 		public override void _Process(float delta)
 		{
 		}
@@ -112,17 +133,18 @@ namespace ldjam_2024
 
 			if (Dead)
 				return;
-			if (InMotion)
-			{
-				var direction = (TargetPosition - GlobalPosition).Normalized();
-				var velocity = direction * Speed;
-
-				velocity = MoveAndSlide(velocity);
-
-				var offsetPosition = GlobalPosition + RotOffset.Rotated(Rotation);
-
-				if (GlobalPosition.DistanceTo(TargetPosition) <= TargetThresh) InMotion = false;
-			}
+			// if (InMotion)
+			// {
+			// 	var direction = (TargetPosition - GlobalPosition).Normalized();
+			// 	var velocity = direction * Speed;
+			//
+			// 	velocity = MoveAndSlide(velocity);
+			//
+			// 	var offsetPosition = GlobalPosition + RotOffset.Rotated(Rotation);
+			//
+			// 	if (GlobalPosition.DistanceTo(TargetPosition) <= TargetThresh) InMotion = false;
+			// }
+			MoveAndSlide(Velocity.Normalized() * Speed);
 		}
 
 		private void UpdateDirection()
