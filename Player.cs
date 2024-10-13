@@ -133,17 +133,7 @@ namespace ldjam_2024
 
 			if (Dead)
 				return;
-			// if (InMotion)
-			// {
-			// 	var direction = (TargetPosition - GlobalPosition).Normalized();
-			// 	var velocity = direction * Speed;
-			//
-			// 	velocity = MoveAndSlide(velocity);
-			//
-			// 	var offsetPosition = GlobalPosition + RotOffset.Rotated(Rotation);
-			//
-			// 	if (GlobalPosition.DistanceTo(TargetPosition) <= TargetThresh) InMotion = false;
-			// }
+			
 			MoveAndSlide(Velocity.Normalized() * Speed);
 		}
 
