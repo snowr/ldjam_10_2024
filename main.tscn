@@ -26,12 +26,11 @@ Weapon2Path = NodePath("Shotgun")
 HealthBarComponent = NodePath("../HealthBar")
 
 [node name="Gun1" parent="Player" instance=ExtResource( 5 )]
-position = Vector2( 13, 4 )
-rotation = -1.5708
+position = Vector2( 1, 11 )
 z_index = 1
 
 [node name="Shotgun" parent="Player" instance=ExtResource( 13 )]
-position = Vector2( 13, 4 )
+position = Vector2( 1, -8 )
 
 [node name="Wall13" parent="." instance=ExtResource( 6 )]
 position = Vector2( 168, 0 )

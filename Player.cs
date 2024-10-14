@@ -76,13 +76,6 @@ namespace ldjam_2024
 			if (Dead)
 				return;
 
-			// if (@event.IsActionPressed("move_to"))
-			// {
-			// 	TargetPosition = GetGlobalMousePosition();
-			// 	InMotion = true;
-			// 	UpdateDirection();
-			// }
-
 			if (@event is InputEventKey keyEvent)
 			{
 				UpdateVelocity(keyEvent.IsAction("move_right"), ref Velocity.x, 1, keyEvent.Pressed);
@@ -90,8 +83,6 @@ namespace ldjam_2024
 				UpdateVelocity(keyEvent.IsAction("move_down"), ref Velocity.y, 1, keyEvent.Pressed);
 				UpdateVelocity(keyEvent.IsAction("move_up"), ref Velocity.y, -1, keyEvent.Pressed);
 			}
-
-			// if(@event.IsAction("move_right") && Velocity.x 
 
 			if (@event.IsAction("primary_fire"))
 			{
@@ -133,7 +124,11 @@ namespace ldjam_2024
 
 			if (Dead)
 				return;
-			
+
+			Vector2 globalMousePos = GetGlobalMousePosition();
+			Vector2 direction = globalMousePos - GlobalPosition;
+			float angle = direction.Angle();
+			Rotation = angle;
 			MoveAndSlide(Velocity.Normalized() * Speed);
 		}
 

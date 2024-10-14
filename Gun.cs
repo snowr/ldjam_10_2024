@@ -62,13 +62,13 @@ namespace ldjam_2024
 		
 		public override void _Process(float delta)
 		{
-			if (PlayerOwned)
-			{
-				Vector2 globalMousePos = GetGlobalMousePosition();
-				Vector2 direction = globalMousePos - GlobalPosition;
-				float angle = direction.Angle();
-				Rotation = angle;
-			}
+			// if (PlayerOwned)
+			// {
+			// 	Vector2 globalMousePos = GetGlobalMousePosition();
+			// 	Vector2 direction = globalMousePos - GlobalPosition;
+			// 	float angle = direction.Angle();
+			// 	Rotation = angle;
+			// }
 		}
 
 		protected virtual void OnAnimationFinished()

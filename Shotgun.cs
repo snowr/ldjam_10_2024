@@ -23,6 +23,7 @@ namespace ldjam_2024
 					Vector2 direction3 = direction.Rotated(Mathf.Deg2Rad(-rotationAngle));
 
 					// If facing left
+					// TODO: we also need to check for other directions
 					if (direction.x < 0)
 					{
 						direction2 = direction.Rotated(Mathf.Deg2Rad(-rotationAngle));
