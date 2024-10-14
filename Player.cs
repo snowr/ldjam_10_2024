@@ -56,16 +56,18 @@ namespace ldjam_2024
 				_weapon1 = GetNode<Gun>(Weapon1Path);
 				if (_weapon1 == null) throw new Exception("Failed to load the primary gun moron.");
 				_weapon1.PlayerOwned = true;
-				_primaryGun = _weapon1;
+				
+				_weapon2 = GetNode<Gun>(Weapon2Path);
+				_weapon2.PlayerOwned = true;
 			}
 
-			if (Weapon2Path != null)
-			{
-				_weapon2 = GetNode<Gun>(Weapon2Path);
-				if (_weapon2 == null) throw new Exception("Failed to load weapon 2.");
-				_weapon2.PlayerOwned = true;
-				_weapon2.Visible = false;
-			}
+			// if (Weapon2Path != null)
+			// {
+			// 	_weapon2 = GetNode<Gun>(Weapon2Path);
+			// 	if (_weapon2 == null) throw new Exception("Failed to load weapon 2.");
+			// 	_weapon2.PlayerOwned = true;
+			// 	_weapon2.Visible = false;
+			// }
 		}
 
 		public override void _UnhandledInput(InputEvent @event)
@@ -86,23 +88,12 @@ namespace ldjam_2024
 
 			if (@event.IsAction("primary_fire"))
 			{
-				if (_primaryGun != null)
-					_primaryGun.Fire();
+				// if (_primaryGun != null)
+				// 	_primaryGun.Fire();
+				_weapon1?.Fire();
+				_weapon2?.Fire();
 			}
 
-			if (@event.IsActionPressed("weapon_slot_1"))
-			{
-				_primaryGun.Visible = false;
-				_primaryGun = _weapon1;
-				_primaryGun.Visible = true;
-			}
-
-			if (@event.IsActionPressed("weapon_slot_2"))
-			{
-				_primaryGun.Visible = false;
-				_primaryGun = _weapon2;
-				_primaryGun.Visible = true;
-			}
 		}
 
 		private void UpdateVelocity(bool isKeyPressed, ref float velocityComponent, float direction, bool isPressed)
