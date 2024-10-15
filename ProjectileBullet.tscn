@@ -9,6 +9,7 @@ height = 0.0
 
 [node name="ProjectileBullet" type="KinematicBody2D"]
 position = Vector2( 1, 1 )
+collision_layer = 2
 script = ExtResource( 2 )
 Speed = 100.0
 Damage = 10
