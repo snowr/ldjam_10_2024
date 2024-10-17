@@ -3,12 +3,20 @@ using Godot;
 
 namespace ldjam_2024
 {
+	public enum WeaponType
+	{
+		MachineGun = 0,
+		Shotgun
+	};
+	
 	[Tool]
 	public class Player : KinematicBody2D
 	{
 		protected Gun _primaryGun;
 		protected Gun _weapon1;
 		protected Gun _weapon2;
+		
+		protected WeaponType EquippedWeaponType;
 
 		public Vector2 Velocity = Vector2.Zero;
 
@@ -59,6 +67,7 @@ namespace ldjam_2024
 				
 				_weapon2 = GetNode<Gun>(Weapon2Path);
 				_weapon2.PlayerOwned = true;
+				EquippedWeaponType = WeaponType.MachineGun;
 			}
 
 			// if (Weapon2Path != null)
@@ -84,6 +93,13 @@ namespace ldjam_2024
 				UpdateVelocity(keyEvent.IsAction("move_left"), ref Velocity.x, -1, keyEvent.Pressed);
 				UpdateVelocity(keyEvent.IsAction("move_down"), ref Velocity.y, 1, keyEvent.Pressed);
 				UpdateVelocity(keyEvent.IsAction("move_up"), ref Velocity.y, -1, keyEvent.Pressed);
+			}
+
+			if (@event.IsAction("weapon_slot_1"))
+			{
+				_weapon1.Hide();
+				_weapon2.Hide();
+
 			}
 
 			if (@event.IsAction("primary_fire"))
