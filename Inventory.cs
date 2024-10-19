@@ -16,7 +16,7 @@ namespace ldjam_2024
 		public NodePath AllSlotsPath { get; set; }
 		public GridContainer AllSlots { get; set; }
 		
-		List<Panel> panels = new List<Panel>();
+		List<InventorySlot> panels = new List<InventorySlot>();
 
 		public void InitDefaultLoadOut()
 		{
@@ -25,13 +25,15 @@ namespace ldjam_2024
 			string machineGunRes = "res://gun1.png";
 			string shotgunRes = "res://ShotgunStatic.png";
 			
-			StyleBoxTexture machineGunTex = new StyleBoxTexture();
-			machineGunTex.Texture = ResourceLoader.Load<Texture>(machineGunRes);
-			panels[0].AddStyleboxOverride("panel", machineGunTex); 
-			
-			StyleBoxTexture shotgunTex = new StyleBoxTexture();
-			shotgunTex.Texture = ResourceLoader.Load<Texture>(shotgunRes);
-			panels[1].AddStyleboxOverride("panel", shotgunTex);
+			// StyleBoxTexture machineGunTex = new StyleBoxTexture();
+			// machineGunTex.Texture = ResourceLoader.Load<Texture>(machineGunRes);
+			// panels[0].AddStyleboxOverride("panel", machineGunTex); 
+			//
+			// StyleBoxTexture shotgunTex = new StyleBoxTexture();
+			// shotgunTex.Texture = ResourceLoader.Load<Texture>(shotgunRes);
+			// panels[1].AddStyleboxOverride("panel", shotgunTex);
+			panels[0].SetItem(machineGunRes, WeaponType.MachineGun);
+			panels[1].SetItem(shotgunRes, WeaponType.Shotgun);
 		}
 
 		public override void _Ready()
@@ -39,10 +41,11 @@ namespace ldjam_2024
 			if(AllSlotsPath == null)
 				throw new Exception("AllSlotsPath is null.");
 			AllSlots = GetNode<GridContainer>(AllSlotsPath);
-			panels = AllSlots.GetChildren().OfType<Panel>()
+			panels = AllSlots.GetChildren().OfType<InventorySlot>()
 				.Where(p => p.Name.StartsWith("ItemPanel"))
 				.ToList();
-			
+		
+			GD.Print(panels.Count);
 			InitDefaultLoadOut();
 		}
 	}
