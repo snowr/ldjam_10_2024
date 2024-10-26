@@ -43,16 +43,20 @@ namespace ldjam_2024
 			Control dragPrev = null;
 			if (Icon != null)
 			{
+				// outer Control to allow us to manipulate the position of the drag preview
+				Control ctl = new Control();
 				dragPrev = new TextureRect()
 				{
 					Texture = Icon,
 					StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
-					Visible = true,
-								Modulate = new Color(1, 1, 1, 0.7f)  // Make it slightly transparent
-					
+					Visible = true, 
+					Modulate = new Color(1, 1, 1, 0.7f),  // Make it slightly transparent
 				};
+				
+				ctl.AddChild(dragPrev);
+				dragPrev.RectPosition = new Vector2(0, -10);
 
-				SetDragPreview(dragPrev);
+				SetDragPreview(ctl);
 				GD.Print("Hello");
 				return dragData;
 			}
