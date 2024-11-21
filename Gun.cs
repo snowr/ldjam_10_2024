@@ -3,7 +3,7 @@ using Godot;
 namespace ldjam_2024
 {
 	[Tool]
-	public class Gun : Node2D
+	public class Gun : Item 
 	{
 		protected bool _isFiring;
 		protected ulong _lastFireTime;

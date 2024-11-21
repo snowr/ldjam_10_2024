@@ -18,6 +18,18 @@ namespace ldjam_2024
 							GD.Print("Set Item");
 		}
 
+		public void SetItem(Item item, WeaponType weaponType)
+		{
+			WeaponType = weaponType;
+			TexturePath = item.InventoryTexturePath;
+			StyleBoxTexture itemTexture = new StyleBoxTexture();
+			itemTexture.Texture = ResourceLoader.Load<Texture>(TexturePath);
+			Icon = itemTexture.Texture;
+			AddStyleboxOverride("panel", itemTexture);
+			GD.Print("Set Item");
+			
+		}
+
 		public WeaponType WeaponType { get; set; }
 		public string TexturePath { get; set; }
 		private Texture Icon { get; set; }

@@ -36,6 +36,26 @@ namespace ldjam_2024
 			panels[1].SetItem(shotgunRes, WeaponType.Shotgun);
 		}
 
+		public void InitDefaultLoadOut2()
+		{
+			if (!panels.Any())
+				throw new Exception("No panels have been initialized.");
+			string machineGunRes = "res://gun1.png";
+			string shotgunRes = "res://ShotgunStatic.png";
+
+			PackedScene machineGunScene = ResourceLoader.Load<PackedScene>("res://Gun1.tscn");
+			PackedScene shotgunScene = ResourceLoader.Load<PackedScene>("res://Gun1.tscn");
+			Gun machineGun = machineGunScene.Instance<Gun>();
+			Gun shotgun = shotgunScene.Instance<Gun>();
+			machineGun.RateOfFire = 100;
+			shotgun.RateOfFire = 500;
+			machineGun.InventoryTexturePath = machineGunRes;
+			shotgun.InventoryTexturePath = shotgunRes;
+
+			panels[0].SetItem(machineGun, WeaponType.MachineGun);
+			panels[1].SetItem(shotgun, WeaponType.Shotgun);
+		}
+
 		public override void _Ready()
 		{
 			if(AllSlotsPath == null)
@@ -46,7 +66,8 @@ namespace ldjam_2024
 				.ToList();
 		
 			GD.Print(panels.Count);
-			InitDefaultLoadOut();
+			// InitDefaultLoadOut();
+			InitDefaultLoadOut2();
 		}
 	}
 }
