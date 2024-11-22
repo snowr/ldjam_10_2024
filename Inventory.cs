@@ -5,6 +5,11 @@ using Godot;
 
 namespace ldjam_2024
 {
+	// Inventory operations:
+	// 1. Add item to inventory
+	// 2. Destroy item from inventory
+	// 3. Swap items in inventory slots
+	// Equipping items is taken care of by the Player class.
 	[Tool]
 	public class Inventory : Node
 	{
@@ -15,30 +20,12 @@ namespace ldjam_2024
 		[Export]
 		public NodePath AllSlotsPath { get; set; }
 		public GridContainer AllSlots { get; set; }
-		
-		List<InventorySlot> panels = new List<InventorySlot>();
 
-		public void InitDefaultLoadOut()
-		{
-			if(!panels.Any())
-				throw new Exception("No panels have been initialized.");
-			string machineGunRes = "res://gun1.png";
-			string shotgunRes = "res://ShotgunStatic.png";
-			
-			// StyleBoxTexture machineGunTex = new StyleBoxTexture();
-			// machineGunTex.Texture = ResourceLoader.Load<Texture>(machineGunRes);
-			// panels[0].AddStyleboxOverride("panel", machineGunTex); 
-			//
-			// StyleBoxTexture shotgunTex = new StyleBoxTexture();
-			// shotgunTex.Texture = ResourceLoader.Load<Texture>(shotgunRes);
-			// panels[1].AddStyleboxOverride("panel", shotgunTex);
-			panels[0].SetItem(machineGunRes, WeaponType.MachineGun);
-			panels[1].SetItem(shotgunRes, WeaponType.Shotgun);
-		}
+		List<InventorySlot> InventorySlots { get; set; } = new List<InventorySlot>();
 
 		public void InitDefaultLoadOut2()
 		{
-			if (!panels.Any())
+			if (!InventorySlots.Any())
 				throw new Exception("No panels have been initialized.");
 			string machineGunRes = "res://gun1.png";
 			string shotgunRes = "res://ShotgunStatic.png";
@@ -52,8 +39,8 @@ namespace ldjam_2024
 			machineGun.InventoryTexturePath = machineGunRes;
 			shotgun.InventoryTexturePath = shotgunRes;
 
-			panels[0].SetItem(machineGun, WeaponType.MachineGun);
-			panels[1].SetItem(shotgun, WeaponType.Shotgun);
+			InventorySlots[0].SetItem(machineGun);
+			InventorySlots[1].SetItem(shotgun);
 		}
 
 		public override void _Ready()
@@ -61,13 +48,28 @@ namespace ldjam_2024
 			if(AllSlotsPath == null)
 				throw new Exception("AllSlotsPath is null.");
 			AllSlots = GetNode<GridContainer>(AllSlotsPath);
-			panels = AllSlots.GetChildren().OfType<InventorySlot>()
+			InventorySlots = AllSlots.GetChildren().OfType<InventorySlot>()
 				.Where(p => p.Name.StartsWith("ItemPanel"))
 				.ToList();
 		
-			GD.Print(panels.Count);
+			GD.Print(InventorySlots.Count);
 			// InitDefaultLoadOut();
 			InitDefaultLoadOut2();
 		}
+
+		public void AddItem(Item item)
+		{
+			var slot = GetEmptySlot();
+			if (slot == null)
+				return;
+			slot.SetItem(item.InventoryTexturePath, item);
+		}
+		
+		public InventorySlot GetEmptySlot()
+		{
+			return InventorySlots.FirstOrDefault(s => s.Empty);
+		}
+		
+		
 	}
 }

@@ -6,31 +6,40 @@ namespace ldjam_2024
 	public class InventorySlot : Panel 
 	{
 		public bool Empty { get; set; }
+		public Item SlotItem { get; set; }
 
-		public void SetItem(string texture, WeaponType weaponType)
+		public void SetItem(string texture, Item item)
 		{
-			WeaponType = weaponType;
+			SlotItem = item;
 			TexturePath = texture;
 			StyleBoxTexture itemTexture = new StyleBoxTexture();
-							itemTexture.Texture = ResourceLoader.Load<Texture>(TexturePath);
-							Icon = itemTexture.Texture;
-							AddStyleboxOverride("panel", itemTexture);
-							GD.Print("Set Item");
+			itemTexture.Texture = ResourceLoader.Load<Texture>(TexturePath);
+			Icon = itemTexture.Texture;
+			AddStyleboxOverride("panel", itemTexture);
+			GD.Print("Set Item");
+			Empty = false;
+
 		}
 
-		public void SetItem(Item item, WeaponType weaponType)
+		public void SetItem(Item item)
 		{
-			WeaponType = weaponType;
+			SlotItem = item;
 			TexturePath = item.InventoryTexturePath;
 			StyleBoxTexture itemTexture = new StyleBoxTexture();
 			itemTexture.Texture = ResourceLoader.Load<Texture>(TexturePath);
 			Icon = itemTexture.Texture;
 			AddStyleboxOverride("panel", itemTexture);
 			GD.Print("Set Item");
-			
+			Empty = false;
 		}
-
-		public WeaponType WeaponType { get; set; }
+		
+		public void UnSet()
+		{
+			Empty = true;
+			TexturePath = "";
+			Icon = null;
+			RemoveStyleboxOverride("panel");
+		}
 		public string TexturePath { get; set; }
 		private Texture Icon { get; set; }
 
@@ -49,9 +58,9 @@ namespace ldjam_2024
 
 		public override object GetDragData(Vector2 position)
 		{
-			Dictionary<string, WeaponType>dragData =
-				new Dictionary<string, WeaponType>();
-			dragData.Add("weapon_dragged", WeaponType);
+			Dictionary<string, Item>dragData =
+				new Dictionary<string, Item>();
+			dragData.Add("weapon_dragged", SlotItem);
 			Control dragPrev = null;
 			if (Icon != null)
 			{

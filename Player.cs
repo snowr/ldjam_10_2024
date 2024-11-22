@@ -5,7 +5,8 @@ namespace ldjam_2024
 {
 	public enum WeaponType
 	{
-		MachineGun = 0,
+		None = 0,
+		MachineGun,
 		Shotgun
 	};
 	
@@ -30,6 +31,7 @@ namespace ldjam_2024
 		public float Speed { get; set; } = 50f;
 		public float TargetThresh { get; set; } = 2f;
 		public float RotationSpeed { get; set; } = 5.0f;
+		public Inventory PlayerInventory { get; set; }
 
 		// public Vector2 RotOffset { get; set; } = new Vector2(1, 0);
 		public Vector2 RotOffset { get; set; } = new Vector2(0, 0);
@@ -53,6 +55,9 @@ namespace ldjam_2024
 				return;
 			_health = 100;
 			_maxHealth = 100;
+			
+			Inventory inventory = new Inventory();
+			AddChild(inventory);
 
 			if (HealthBarComponent != null)
 			{
@@ -179,6 +184,32 @@ namespace ldjam_2024
 					HealthBar.Ticks[idx].Visible = false;
 				}
 			}
+		}
+
+		public void EquipWeapon(Gun gun, int slot)
+		{
+			if (slot == 1)
+			{
+				_weapon1 = gun;
+			}
+			else
+			{
+				_weapon2 = gun;
+			}
+		}
+		
+		public void UnEquipWeapon(int slot)
+		{
+			if (slot == 1)
+			{
+				_weapon1 = null;
+			}
+			else
+			{
+				_weapon2 = null;
+			}
+			
+			
 		}
 	}
 }
