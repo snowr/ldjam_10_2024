@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using Godot.Collections;
 
@@ -5,7 +6,14 @@ namespace ldjam_2024
 {
 	public class InventorySlot : Panel 
 	{
-		public bool Empty { get; set; }
+		public bool Empty
+		{
+			get
+			{
+				return SlotItem == null;
+			}
+		}
+
 		public Item SlotItem { get; set; }
 
 		public void SetItem(string texture, Item item)
@@ -17,7 +25,6 @@ namespace ldjam_2024
 			Icon = itemTexture.Texture;
 			AddStyleboxOverride("panel", itemTexture);
 			GD.Print("Set Item");
-			Empty = false;
 
 		}
 
@@ -30,21 +37,26 @@ namespace ldjam_2024
 			Icon = itemTexture.Texture;
 			AddStyleboxOverride("panel", itemTexture);
 			GD.Print("Set Item");
-			Empty = false;
+			AddChild(item);
+			// We're hiding the item because we're using the InventoryTexturePath to display its thumbnail
+			item.Hide();
 		}
 		
 		public void UnSet()
 		{
-			Empty = true;
 			TexturePath = "";
 			Icon = null;
 			RemoveStyleboxOverride("panel");
+			if(!Empty)
+				RemoveChild(SlotItem);
+			SlotItem = null;
 		}
 		public string TexturePath { get; set; }
 		private Texture Icon { get; set; }
 
 		public override void _Ready()
 		{
+			GD.Print($"--------- {Name}");
 		}
 
 		public override void _GuiInput(InputEvent @event)
@@ -58,9 +70,10 @@ namespace ldjam_2024
 
 		public override object GetDragData(Vector2 position)
 		{
-			Dictionary<string, Item>dragData =
-				new Dictionary<string, Item>();
+			Dictionary<string, object> dragData =
+				new Dictionary<string, object>();
 			dragData.Add("weapon_dragged", SlotItem);
+			dragData.Add("source", this);
 			Control dragPrev = null;
 			if (Icon != null)
 			{
@@ -83,6 +96,23 @@ namespace ldjam_2024
 			}
 
 			return null;
+		}
+
+		public override bool CanDropData(Vector2 position, object data)
+		{
+			return Empty;
+		}
+
+		public override void DropData(Vector2 position, object data)
+		{
+			GD.Print($"Dropping {data.GetType()} at position {position}");
+			Godot.Collections.Dictionary droppedItems = data as Godot.Collections.Dictionary;
+			if (droppedItems != null)
+			{
+				GD.Print("Success Drop");
+				(droppedItems["source"] as InventorySlot).UnSet();
+				SetItem(droppedItems["weapon_dragged"] as Item);
+			}
 		}
 	}
 }

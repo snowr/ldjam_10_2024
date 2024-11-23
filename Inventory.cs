@@ -22,6 +22,7 @@ namespace ldjam_2024
 		public GridContainer AllSlots { get; set; }
 
 		List<InventorySlot> InventorySlots { get; set; } = new List<InventorySlot>();
+		List<InventorySlot> EquippedSlots { get; set; } = new List<InventorySlot>();
 
 		public void InitDefaultLoadOut2()
 		{

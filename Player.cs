@@ -13,7 +13,6 @@ namespace ldjam_2024
 	[Tool]
 	public class Player : KinematicBody2D
 	{
-		protected Gun _primaryGun;
 		protected Gun _weapon1;
 		protected Gun _weapon2;
 		

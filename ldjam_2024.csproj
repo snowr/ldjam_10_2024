@@ -4,6 +4,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Content Include=".gitignore"/>
+        <Content Include="run_inventory.sh" />
         <Content Include="run_sectorgrid.sh"/>
     </ItemGroup>
 
