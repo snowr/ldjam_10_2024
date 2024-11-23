@@ -13,18 +13,21 @@ namespace ldjam_2024
 	[Tool]
 	public class Inventory : Node
 	{
+		public InventorySlot EquippedSlot1 { get; set; }
+		public InventorySlot EquippedSlot2 { get; set; }
 
-		public Gun GunSlot1 { get; set; }
-		public Gun GunSlot2 { get; set; }
 		
 		[Export]
 		public NodePath AllSlotsPath { get; set; }
+		
+		[Export]
+		public NodePath EquippedSlotsPath { get; set; }
+		
 		public GridContainer AllSlots { get; set; }
 
 		List<InventorySlot> InventorySlots { get; set; } = new List<InventorySlot>();
-		List<InventorySlot> EquippedSlots { get; set; } = new List<InventorySlot>();
 
-		public void InitDefaultLoadOut2()
+		public void InitDefaultLoadOut()
 		{
 			if (!InventorySlots.Any())
 				throw new Exception("No panels have been initialized.");
@@ -42,20 +45,49 @@ namespace ldjam_2024
 
 			InventorySlots[0].SetItem(machineGun);
 			InventorySlots[1].SetItem(shotgun);
+			
+			foreach (var inventorySlot in InventorySlots)
+			{
+				inventorySlot.Connect(nameof(InventorySlot.InventorySlotChanged), this, nameof(OnInventorySlotChanged));
+			}
 		}
 
 		public override void _Ready()
 		{
 			if(AllSlotsPath == null)
 				throw new Exception("AllSlotsPath is null.");
+			if(EquippedSlotsPath == null)
+				throw new Exception("EquippedSlotsPath is null.");
+			
 			AllSlots = GetNode<GridContainer>(AllSlotsPath);
 			InventorySlots = AllSlots.GetChildren().OfType<InventorySlot>()
 				.Where(p => p.Name.StartsWith("ItemPanel"))
 				.ToList();
-		
+
+			try
+			{
+				var allEquippedSlots = GetNode<GridContainer>(EquippedSlotsPath).GetChildren().OfType<InventorySlot>();
+				EquippedSlot1 = allEquippedSlots.FirstOrDefault(x => x.Name == "EquippedSlot1");
+				EquippedSlot2 = allEquippedSlots.FirstOrDefault(x => x.Name == "EquippedSlot2");
+
+				if (EquippedSlot1 == null || EquippedSlot2 == null)
+				{
+					throw new Exception("No equipped slots have been initialized.");
+				}
+
+				foreach (var slot in allEquippedSlots)
+				{
+					slot.Connect(nameof(InventorySlot.InventorySlotChanged), this, nameof(OnInventorySlotChanged));
+				}
+			}
+			catch (Exception ex)
+			{
+				GD.Print($"Failed to get all inventory slots: {ex.Message}");
+				throw;
+			}
+
 			GD.Print(InventorySlots.Count);
-			// InitDefaultLoadOut();
-			InitDefaultLoadOut2();
+			InitDefaultLoadOut();
 		}
 
 		public void AddItem(Item item)
@@ -70,7 +102,10 @@ namespace ldjam_2024
 		{
 			return InventorySlots.FirstOrDefault(s => s.Empty);
 		}
-		
-		
+
+		public void OnInventorySlotChanged(Item newItem)
+		{
+			
+		}
 	}
 }

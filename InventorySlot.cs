@@ -4,8 +4,20 @@ using Godot.Collections;
 
 namespace ldjam_2024
 {
+	public enum InventorySlotType
+	{
+		InventoryStorage = 0,
+		EquippedSlot
+	}
+
 	public class InventorySlot : Panel 
 	{
+		[Signal]
+		public delegate void InventorySlotChanged(Item newItem);
+		
+		[Export]
+		public InventorySlotType SlotType { get; set; }
+		
 		public bool Empty
 		{
 			get
@@ -112,7 +124,13 @@ namespace ldjam_2024
 				GD.Print("Success Drop");
 				(droppedItems["source"] as InventorySlot).UnSet();
 				SetItem(droppedItems["weapon_dragged"] as Item);
+				OnItemChanged();
 			}
+		}
+
+		public void OnItemChanged()
+		{
+			EmitSignal(nameof(InventorySlotChanged), SlotItem);
 		}
 	}
 }
