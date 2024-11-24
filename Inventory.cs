@@ -100,12 +100,11 @@ namespace ldjam_2024
 		
 		public InventorySlot GetEmptySlot()
 		{
-			return InventorySlots.FirstOrDefault(s => s.Empty);
+			return InventorySlots.FirstOrDefault(s => s.IsEmpty);
 		}
 
 		public void OnInventorySlotChanged(Item newItem)
 		{
-			
 		}
 	}
 }

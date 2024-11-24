@@ -10,15 +10,21 @@ namespace ldjam_2024
 		EquippedSlot
 	}
 
+	public class InventorySlotChangedEvent
+	{
+		public Item NewItem { get; set; }
+		public InventorySlotType SlotType { get; set; }
+	}
+
 	public class InventorySlot : Panel 
 	{
 		[Signal]
-		public delegate void InventorySlotChanged(Item newItem);
+		public delegate void InventorySlotChanged(InventorySlotChangedEvent e);
 		
 		[Export]
 		public InventorySlotType SlotType { get; set; }
 		
-		public bool Empty
+		public bool IsEmpty
 		{
 			get
 			{
@@ -59,7 +65,7 @@ namespace ldjam_2024
 			TexturePath = "";
 			Icon = null;
 			RemoveStyleboxOverride("panel");
-			if(!Empty)
+			if(!IsEmpty)
 				RemoveChild(SlotItem);
 			SlotItem = null;
 		}
@@ -112,7 +118,7 @@ namespace ldjam_2024
 
 		public override bool CanDropData(Vector2 position, object data)
 		{
-			return Empty;
+			return IsEmpty;
 		}
 
 		public override void DropData(Vector2 position, object data)
@@ -130,7 +136,11 @@ namespace ldjam_2024
 
 		public void OnItemChanged()
 		{
-			EmitSignal(nameof(InventorySlotChanged), SlotItem);
+			EmitSignal(nameof(InventorySlotChanged), new InventorySlotChangedEvent()
+			{
+				NewItem = SlotItem,
+				SlotType = SlotType
+			});
 		}
 	}
 }
