@@ -13,16 +13,16 @@ namespace ldjam_2024
 	[Tool]
 	public class Inventory : Node
 	{
+		private List<Node> ConnectedNodes { get; set; } = new List<Node>();
+
 		public InventorySlot EquippedSlot1 { get; set; }
 		public InventorySlot EquippedSlot2 { get; set; }
 
-		
-		[Export]
-		public NodePath AllSlotsPath { get; set; }
-		
-		[Export]
-		public NodePath EquippedSlotsPath { get; set; }
-		
+
+		[Export] public NodePath AllSlotsPath { get; set; }
+
+		[Export] public NodePath EquippedSlotsPath { get; set; }
+
 		public GridContainer AllSlots { get; set; }
 
 		List<InventorySlot> InventorySlots { get; set; } = new List<InventorySlot>();
@@ -45,20 +45,21 @@ namespace ldjam_2024
 
 			InventorySlots[0].SetItem(machineGun);
 			InventorySlots[1].SetItem(shotgun);
-			
+
 			foreach (var inventorySlot in InventorySlots)
 			{
 				inventorySlot.Connect(nameof(InventorySlot.InventorySlotChanged), this, nameof(OnInventorySlotChanged));
+				ConnectedNodes.Add(inventorySlot);
 			}
 		}
 
 		public override void _Ready()
 		{
-			if(AllSlotsPath == null)
+			if (AllSlotsPath == null)
 				throw new Exception("AllSlotsPath is null.");
-			if(EquippedSlotsPath == null)
+			if (EquippedSlotsPath == null)
 				throw new Exception("EquippedSlotsPath is null.");
-			
+
 			AllSlots = GetNode<GridContainer>(AllSlotsPath);
 			InventorySlots = AllSlots.GetChildren().OfType<InventorySlot>()
 				.Where(p => p.Name.StartsWith("ItemPanel"))
@@ -78,6 +79,7 @@ namespace ldjam_2024
 				foreach (var slot in allEquippedSlots)
 				{
 					slot.Connect(nameof(InventorySlot.InventorySlotChanged), this, nameof(OnInventorySlotChanged));
+					ConnectedNodes.Add(slot);
 				}
 			}
 			catch (Exception ex)
@@ -97,14 +99,47 @@ namespace ldjam_2024
 				return;
 			slot.SetItem(item.InventoryTexturePath, item);
 		}
-		
+
 		public InventorySlot GetEmptySlot()
 		{
 			return InventorySlots.FirstOrDefault(s => s.IsEmpty);
 		}
 
-		public void OnInventorySlotChanged(Item newItem)
+		public void OnInventorySlotChanged(InventorySlotChangedEvent e)
 		{
+			if (e.NewItem != null)
+				GD.Print($"Inventory slot changed: {e.SourceSlotType} {e.TargetSlotType} {e.NewItem.Name}");
+			else
+				GD.Print($"Inventory slot changed: {e.SourceSlotType} {e.TargetSlotType} Empty");
+		}
+		
+		
+
+		public override void _ExitTree()
+		{
+			GD.Print($"Found {ConnectedNodes.Count} connected nodes.");
+			foreach (var node in ConnectedNodes)
+			{
+				if (IsInstanceValid(node))
+				{
+					// First check if we're still connected before trying to disconnect
+					if (node.IsConnected(nameof(InventorySlot.InventorySlotChanged), this,
+						    nameof(OnInventorySlotChanged)))
+					{
+						// The node owns the signal, so we need to tell it to disconnect from us
+						node.Disconnect(nameof(InventorySlot.InventorySlotChanged), this,
+							nameof(OnInventorySlotChanged));
+						GD.Print($"\tDisconnected from {node.Name}");
+					}
+				}
+				else
+				{
+					GD.Print($"\tNode {node.Name} is not valid.");
+				}
+			}
+
+			ConnectedNodes.Clear();
+			base._ExitTree();
 		}
 	}
 }

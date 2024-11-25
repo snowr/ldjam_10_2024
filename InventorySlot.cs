@@ -1,23 +1,13 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Godot.Collections;
 
 namespace ldjam_2024
 {
-	public enum InventorySlotType
-	{
-		InventoryStorage = 0,
-		EquippedSlot
-	}
-
-	public class InventorySlotChangedEvent
-	{
-		public Item NewItem { get; set; }
-		public InventorySlotType SlotType { get; set; }
-	}
 
 	public class InventorySlot : Panel 
 	{
+
 		[Signal]
 		public delegate void InventorySlotChanged(InventorySlotChangedEvent e);
 		
@@ -88,8 +78,8 @@ namespace ldjam_2024
 
 		public override object GetDragData(Vector2 position)
 		{
-			Dictionary<string, object> dragData =
-				new Dictionary<string, object>();
+			Godot.Collections.Dictionary<string, object> dragData =
+				new Godot.Collections.Dictionary<string, object>();
 			dragData.Add("weapon_dragged", SlotItem);
 			dragData.Add("source", this);
 			Control dragPrev = null;
@@ -127,19 +117,21 @@ namespace ldjam_2024
 			Godot.Collections.Dictionary droppedItems = data as Godot.Collections.Dictionary;
 			if (droppedItems != null)
 			{
+				var source = (droppedItems["source"] as InventorySlot);
 				GD.Print("Success Drop");
-				(droppedItems["source"] as InventorySlot).UnSet();
+				source.UnSet();
 				SetItem(droppedItems["weapon_dragged"] as Item);
-				OnItemChanged();
+				OnItemChanged(source);
 			}
 		}
 
-		public void OnItemChanged()
+		public void OnItemChanged(InventorySlot source)
 		{
 			EmitSignal(nameof(InventorySlotChanged), new InventorySlotChangedEvent()
 			{
 				NewItem = SlotItem,
-				SlotType = SlotType
+				TargetSlotType = SlotType,
+				SourceSlotType = source.SlotType
 			});
 		}
 	}
